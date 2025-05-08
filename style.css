@@ -128,3 +128,63 @@ body {
     background-color: #7aa5ce;
   }
   
+
+  /* POP-UP CIENTISTA */
+
+  #faseIntro {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 15;
+  }
+  
+  .intro-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  }
+  
+  .intro-avatar {
+    width: 120px;
+    margin-bottom: 20px;
+  }
+  
+  #introTexto {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: 'Fredoka', sans-serif;
+  }
+  
+  #introBtn {
+    padding: 10px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    background-color: #A7C4E7;
+    color: white;
+    cursor: pointer;
+  }
+  
+  #introBtn:hover {
+    background-color: #7aa5ce;
+  }
+  
+
+  /* CIENTISTA */
+
+  .intro-avatar {
+    width: 180px;         /* aumente esse valor conforme desejar */
+    height: auto;         /* mantém proporção da imagem */
+    margin-bottom: 20px;
+  }
+  
