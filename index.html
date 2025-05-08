@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Missão Saudável</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <video id="bgVideo" autoplay muted loop playsinline>
+      <source src="assets/background/fundo-inicial.mp4" type="video/mp4" />
+      Seu navegador não suporta vídeo.
+    </video>
+  
+    <div id="menu">
+      <button id="startButton">Começar</button>
+    </div>
+
+    <div id="faseMenu" style="display: none;">
+        <h2>Escolha uma Fase</h2>
+        <div class="fase-grid">
+          <button class="faseBtn" data-fase="1"> Fase 1: 🍎 Frutas vs Doces</button>
+          <button class="faseBtn" data-fase="2"> Fase 2: 🥕 Legumes vs Fast Food</button>
+          <button class="faseBtn" data-fase="3"> Fase 3: 💧 Água vs Refrigerantes</button>
+        </div>
+      </div>
+      
+  
+    <canvas id="gameCanvas" width="800" height="600" style="display: none;"></canvas>
+  
+    <script src="js/game.js"></script>
+  </body>
+</html>
