@@ -1,25 +1,15 @@
 const keys = {
-    a: {
-        pressed: false
-    },
-    d: {
-        pressed: false
-    },
-    w: {
-        pressed: false,
-        hold: false
-    },
-    space: {
-        pressed: false,
-        hold: false
-    },
-
+    a: { pressed: false },
+    d: { pressed: false },
+    w: { pressed: false, hold: false },
+    space: { pressed: false, hold: false },
+    h: { pressed: false, hold: false }
 }
 
 window.addEventListener("keydown", e => {
     let key = e.key
 
-    switch(key) {
+    switch (key) {
         case "ArrowLeft":
         case "a":
             keys.a.pressed = true
@@ -38,13 +28,17 @@ window.addEventListener("keydown", e => {
         case " ":
             keys.space.pressed = true
             break
+        case "h":
+            keys.h.pressed = true;
+            break;
+            
     }
 })
 
 window.addEventListener("keyup", e => {
     let key = e.key
 
-    switch(key) {
+    switch (key) {
         case "ArrowLeft":
         case "a":
             keys.a.pressed = false
@@ -63,6 +57,11 @@ window.addEventListener("keyup", e => {
             keys.space.pressed = false
             keys.space.hold = false
             break
+        case "h":
+            keys.h.pressed = false;
+            keys.h.hold = false;
+            break;
+            
     }
 })
 
@@ -108,6 +107,12 @@ function handleControls() {
         if (keys.space.pressed && !keys.space.hold) {
             player.attack()
             keys.space.hold = true
-        } 
+        }
     }
+
+    if (keys.h.pressed && !keys.h.hold) {
+        simularDano();
+        keys.h.hold = true;
+    }
+
 }

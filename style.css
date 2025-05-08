@@ -1,12 +1,13 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #d9f2e6;
+    font-family: 'Fredoka', sans-serif;
+    background: #f0f4f8;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-family: sans-serif;
+    overflow: hidden;
   }
   
   #menu {
@@ -45,30 +46,33 @@ body {
     position: relative;
     z-index: 1;
     text-align: center;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 16px;
+    background: rgb(255, 255, 255);
+    border-radius: 14px;
     padding: 40px;
-    max-width: 700px;
+    width: 90%;
+    max-width: 800px;
+    height: 70%;
+    max-height: 600px;
     margin: auto;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   }
   
   #faseMenu h2 {
-    font-size: 32px;
-    margin-bottom: 30px;
+    font-size: 42px;
+    margin-bottom: 40px;
     color: #333;
-    text-shadow: 1px 1px 0 #fff;
+    font-family: 'Fredoka', sans-serif;
+    text-shadow: 1px 1px 1px #ddd;
   }
   
   .fase-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 20px;
   }
   
   .faseBtn {
-    padding: 20px 24px;
+    padding: 15px 24px;
     font-size: 18px;
     background: linear-gradient(145deg, #a7c4e7, #89add4);
     border: none;
@@ -87,5 +91,40 @@ body {
   }
   
   
-
+/* GAME OVER */
+#gameOverScreen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+  }
+  
+  #gameOverScreen h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+    font-family: 'Fredoka', sans-serif;
+    color: #c0392b;
+  }
+  
+  .game-over-buttons button {
+    padding: 15px 30px;
+    margin: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    background-color: #A7C4E7;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .game-over-buttons button:hover {
+    background-color: #7aa5ce;
+  }
   

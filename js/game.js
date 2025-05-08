@@ -13,9 +13,27 @@ canvas.height = canvasHeight
 const desiredFPS = 120; // The desired frames per second
 const frameTime = 1000 / desiredFPS; // The time per frame in milliseconds
 
+const retryButton = document.getElementById("retryButton");
+const backToMenuButton = document.getElementById("backToMenuButton");
+
 let prevTime = performance.now();
 let lag = 0;
 
+let vidaAtual = 5;
+const vidaMaxima = 5;
+
+retryButton.addEventListener("click", () => {
+    vidaAtual = vidaMaxima;
+    document.getElementById("gameOverScreen").style.display = "none";
+    iniciarFase1(); // Ou você pode guardar a fase atual em uma variável
+  });
+  
+  backToMenuButton.addEventListener("click", () => {
+    vidaAtual = vidaMaxima;
+    document.getElementById("gameOverScreen").style.display = "none";
+    canvas.style.display = "none";
+    faseMenu.style.display = "block";
+  });
 
 startButton.addEventListener("click", () => {
     menu.style.display = "none";
@@ -51,10 +69,16 @@ startButton.addEventListener("click", () => {
     }
 
     window.requestAnimationFrame(animate);
+    ctx.fillStyle = "#000";
+    ctx.font = "30px Arial";
+
+    // Barra de vida
+    desenharBarraDeVida();
 }
 
   function iniciarFase(fase) {
-    if (fase === "1") iniciarFase1();
+    if (fase === "1") 
+        iniciarFase1();
   }
   
   function iniciarFase1() {
@@ -67,5 +91,35 @@ startButton.addEventListener("click", () => {
     animate();
   }
 
+  function desenharBarraDeVida() {
+    const coracaoCheio = "❤️";
+    const coracaoVazio = "🖤";
+  
+    let coracoes = "";
+    for (let i = 1; i <= vidaMaxima; i++) {
+      coracoes += i <= vidaAtual ? coracaoCheio : coracaoVazio;
+    }
+  
+    ctx.font = "24px Fredoka, sans-serif";
+    ctx.fillStyle = "#fff";
+    ctx.fillText("Vidas: " + coracoes, 20, 40);
 
+    if (vidaAtual === 0) {
+        mostrarGameOver();
+      }
+      
+  }
+  
 
+  function simularDano() {
+    if (vidaAtual > 0) {
+      vidaAtual--;
+      console.log("Dano! Vida restante:", vidaAtual);
+    }
+  }
+  
+  function mostrarGameOver() {
+    // Para de animar (você pode adicionar um flag se quiser)
+    document.getElementById("gameOverScreen").style.display = "block";
+  }
+  
