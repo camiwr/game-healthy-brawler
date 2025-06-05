@@ -10,8 +10,8 @@ const canvasHeight = 576
 canvas.width = canvasWidth
 canvas.height = canvasHeight
 
-const desiredFPS = 120; // The desired frames per second
-const frameTime = 1000 / desiredFPS; // The time per frame in milliseconds
+const desiredFPS = 120; 
+const frameTime = 1000 / desiredFPS; 
 
 const retryButton = document.getElementById("retryButton");
 const backToMenuButton = document.getElementById("backToMenuButton");
@@ -25,7 +25,7 @@ const vidaMaxima = 5;
 retryButton.addEventListener("click", () => {
     vidaAtual = vidaMaxima;
     document.getElementById("gameOverScreen").style.display = "none";
-    iniciarFase1(); // Ou você pode guardar a fase atual em uma variável
+    iniciarFase1(); 
 });
 
 backToMenuButton.addEventListener("click", () => {
@@ -72,7 +72,6 @@ function animate() {
     ctx.fillStyle = "#000";
     ctx.font = "30px Arial";
 
-    // Barra de vida
     desenharBarraDeVida();
 }
 
@@ -122,7 +121,6 @@ function simularDano() {
 }
 
 function mostrarGameOver() {
-    // Para de animar (você pode adicionar um flag se quiser)
     document.getElementById("gameOverScreen").style.display = "block";
 }
 
