@@ -29,7 +29,7 @@
         <img src="assets/items/milho.png" class="floating-fruit" style="top: 35%; left: 20%;" />
         <img src="assets/items/abacaxi.png" class="floating-fruit" style="top: 5%; left: 45%;" />
 
-        
+
     </div>
     <style>
         #floating-fruits {
@@ -107,8 +107,8 @@
         </div>
     </div>
     <script>
-        document.querySelectorAll('.backToMenuButton').forEach(function(btn) {
-            btn.onclick = function() {
+        document.querySelectorAll('.backToMenuButton').forEach(function (btn) {
+            btn.onclick = function () {
                 window.location.href = 'index.html';
             };
         });
@@ -117,27 +117,27 @@
 
 
     <div id="faseIntro" style="display: none;">
-    <div class="intro-box">
-      <img id="introImg" src="assets/cientista/cientista.png" alt="Cientista" class="intro-avatar" />
-      <p id="introTexto"></p>
-      <button id="introBtn">Próximo ></button>
+        <div class="intro-box">
+            <img id="introImg" src="assets/cientista/cientista.png" alt="Cientista" class="intro-avatar" />
+            <p id="introTexto"></p>
+            <button id="introBtn">Próximo ></button>
+        </div>
     </div>
-  </div>
 
-  <div id="tutorialIntro" style="display: none;">
-    <div class="intro-box">
-      <h2 id="tutorialTitulo" class="intro-title">Como jogar?</h2>
-      <p id="tutorialTexto"></p>
-      <div class="tutorial-buttons">
-        <button id="tutorialBtn">Próximo</button>
-        <button id="pularTutorialBtn">Pular tutorial</button>
-      </div>
+    <div id="tutorialIntro" style="display: none;">
+        <div class="intro-box">
+            <h2 id="tutorialTitulo" class="intro-title">Como jogar?</h2>
+            <p id="tutorialTexto"></p>
+            <div class="tutorial-buttons">
+                <button id="tutorialBtn">Próximo</button>
+                <button id="pularTutorialBtn">Pular tutorial</button>
+            </div>
+        </div>
     </div>
-  </div>
 
     <canvas id="gameCanvas" width="800" height="600" style="display: none; z-index: 9;"></canvas>
 
-
+    <script src="./js/levelOne.js"></script>
     <script src="./js/config.js"></script>
     <script src="./js/sprites.js"></script>
     <script src="./js/controls.js"></script>
