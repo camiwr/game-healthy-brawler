@@ -1,5 +1,4 @@
-// Background exclusivo da fase 2
-const background = new Background("../assets/background/bg-floresta.jpeg");
+const back = new Background("../assets/background/bg-floresta.jpeg");
 
 function iniciarFase2() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);

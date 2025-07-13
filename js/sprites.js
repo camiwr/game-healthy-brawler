@@ -383,8 +383,6 @@ class Background {
     }
 }
 
-const background = new Background("../assets/background/bg-city.jpeg");
-
 const player = new Fighter({
     position: { x: 100, y: 300 },
     velocity: { x: 0, y: 10 },

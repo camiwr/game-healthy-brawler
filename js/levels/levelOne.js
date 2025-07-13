@@ -1,5 +1,4 @@
-// Background exclusivo da fase 1
-const background = new Background("../assets/background/bg-city.jpeg");
+const background = new Background("../../assets/background/bg-city.jpeg");
 
 // Itens e inimigos da fase 1
 function iniciarFase1() {
@@ -21,6 +20,7 @@ function iniciarFase1() {
         items.push(new Item({ position: { x: 600, y: 400 }, type: "apple" }));
         items.push(new Item({ position: { x: 1300, y: 500 }, type: "apple" }));
         items.push(new Item({ position: { x: 1000, y: 380 }, type: "hamburguer" }));
+        items.push(new Item({ position: { x: 1700, y: 450 }, type: "hamburguer" }));
         items.push(new Item({ position: { x: 1500, y: 420 }, type: "hamburguer" }));
 
         // 👾 Inimigos da fase 1

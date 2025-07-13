@@ -2,43 +2,36 @@ const menu = document.getElementById("menu");
 const canvas = document.getElementById("gameCanvas");
 const faseMenu = document.getElementById("faseMenu");
 const startButton = document.getElementById("startButton");
+const retryButton = document.getElementById("retryButton");
+const backToMenuButton = document.getElementById("backToMenuButton");
 const ctx = canvas.getContext("2d");
-
 const canvasWidth = 1024;
 const canvasHeight = 576;
+const desiredFPS = 120;
+const frameTime = 1000 / desiredFPS;
+const vidaMaxima = 5;
 
 canvas.width = canvasWidth;
 canvas.height = canvasHeight;
 
-const MAP_WIDTH = 5000;
-let cameraOffsetX = 0;
 let items = [];
 let enemies = [];
-let lastEnemy = null;
-let jogoTravado = false;
+let projectiles = [];
 let animFrameId;
-
-
+let cameraOffsetX = 0;
+let lastEnemy = null;
+let lag = 0;
+let vidaAtual = 5;
+let jogoTravado = false;
 let fruitBasketSpawned = false;
+let prevTime = performance.now();
 
-const desiredFPS = 120;
-const frameTime = 1000 / desiredFPS;
-
-const retryButton = document.getElementById("retryButton");
-const backToMenuButton = document.getElementById("backToMenuButton");
 
 items.push(new Item({ position: { x: 600, y: 400 }, type: "apple" }));
 items.push(new Item({ position: { x: 1300, y: 500 }, type: "apple" }));
 items.push(new Item({ position: { x: 1000, y: 380 }, type: "hamburguer" }));
 items.push(new Item({ position: { x: 1500, y: 420 }, type: "hamburguer" }));
 
-
-let prevTime = performance.now();
-let lag = 0;
-let projectiles = [];
-
-let vidaAtual = 5;
-const vidaMaxima = 5;
 
 startButton.addEventListener("click", () => {
     menu.style.display = "none";
@@ -53,81 +46,6 @@ document.querySelectorAll(".faseBtn").forEach(button => {
         iniciarFase(faseSelecionada);
     });
 });
-
-function criarInimigos() {
-    enemies = [
-        new Enemy({
-            position: { x: 1800, y: 400 },
-            velocity: { x: 0, y: 0 },
-            scale: 2.5,
-            sprites: {
-                idle_down: {
-                    src: "../assets/enemies/slime_idle.png",
-                    totalSpriteFrames: 4,
-                    framesPerSpriteFrame: 10
-                },
-                running: {
-                    src: "../assets/enemies/slime_run.png",
-                    totalSpriteFrames: 6,
-                    framesPerSpriteFrame: 7
-                },
-                death: {
-                    src: "../assets/enemies/slime_die.png",
-                    totalSpriteFrames: 5,
-                    framesPerSpriteFrame: 10
-                }
-            }
-        }),
-        new Enemy({
-            position: { x: 2200, y: 500 },
-            velocity: { x: 0, y: 0 },
-            scale: 2.5,
-            sprites: {
-                idle_down: {
-                    src: "../assets/enemies/slime_idle.png",
-                    totalSpriteFrames: 4,
-                    framesPerSpriteFrame: 10
-                },
-                running: {
-                    src: "../assets/enemies/slime_run.png",
-                    totalSpriteFrames: 6,
-                    framesPerSpriteFrame: 7
-                },
-                death: {
-                    src: "../assets/enemies/slime_die.png",
-                    totalSpriteFrames: 5,
-                    framesPerSpriteFrame: 10
-                }
-            }
-        }),
-        new Enemy({
-            position: { x: 5000, y: 420 },
-            dropFruitBasket: true,
-            velocity: { x: 0, y: 0 },
-            scale: 2.5,
-            sprites: {
-                idle_down: {
-                    src: "../assets/enemies/slime_idle.png",
-                    totalSpriteFrames: 4,
-                    framesPerSpriteFrame: 10
-                },
-                running: {
-                    src: "../assets/enemies/slime_run.png",
-                    totalSpriteFrames: 6,
-                    framesPerSpriteFrame: 7
-                },
-                death: {
-                    src: "../assets/enemies/slime_die.png",
-                    totalSpriteFrames: 5,
-                    framesPerSpriteFrame: 10
-                }
-            }
-        })
-    ];
-}
-
-criarInimigos();
-
 
 function checkCollision(a, b) {
     const aWidth = a.width || 16;
@@ -256,7 +174,6 @@ function animate() {
     desenharBarraDeVida();
 }
 
-// Criação da cesta de frutas (drop final)
 function spawnFruitBasket(position) {
     const cesta = new FruitBasket({
         position: {
@@ -284,21 +201,8 @@ function showVictoryScreen() {
 }
 
 function iniciarFase(fase) {
-    if (fase === "1")
-        iniciarFase1();
-}
-
-function iniciarFase1() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#fff";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#000";
-    ctx.font = "30px Arial";
-    mostrarIntroDaFase("1", () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        vidaAtual = vidaMaxima;
-        animate();
-    });
+    if (fase === "1") iniciarFase1();
+    else if (fase === "2") iniciarFase2();
 }
 
 function desenharBarraDeVida() {
@@ -311,7 +215,7 @@ function desenharBarraDeVida() {
     }
 
     ctx.font = "24px Fredoka, sans-serif";
-    ctx.fillStyle = "#fff";
+    ctx.fillStyle = "#000";
     ctx.strokeStyle = "#000";
     ctx.fillText("Vidas: " + coracoes, 20, 40);
 
