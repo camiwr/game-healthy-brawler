@@ -344,3 +344,26 @@ body {
 #tutorialIntro button:hover {
   background-color: #219150;
 }
+
+
+.tutorial-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.tutorial-buttons button {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tutorial-buttons button:hover {
+  background-color: #219150;
+}

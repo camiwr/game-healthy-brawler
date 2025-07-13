@@ -40,20 +40,6 @@ let projectiles = [];
 let vidaAtual = 5;
 const vidaMaxima = 5;
 
-
-retryButton.addEventListener("click", () => {
-    vidaAtual = vidaMaxima;
-    document.getElementById("gameOverScreen").style.display = "none";
-    iniciarFase1();
-});
-
-backToMenuButton.addEventListener("click", () => {
-    vidaAtual = vidaMaxima;
-    document.getElementById("gameOverScreen").style.display = "none";
-    canvas.style.display = "none";
-    faseMenu.style.display = "block";
-});
-
 startButton.addEventListener("click", () => {
     menu.style.display = "none";
     faseMenu.style.display = "block";
@@ -71,7 +57,7 @@ document.querySelectorAll(".faseBtn").forEach(button => {
 function criarInimigos() {
     enemies = [
         new Enemy({
-            position: { x: 1300, y: 400 },
+            position: { x: 1800, y: 400 },
             velocity: { x: 0, y: 0 },
             scale: 2.5,
             sprites: {
@@ -295,7 +281,6 @@ function showVictoryScreen() {
 
     animFrameId = requestAnimationFrame(animate);
     jogoTravado = true;
-
 }
 
 function iniciarFase(fase) {
@@ -349,68 +334,55 @@ function mostrarGameOver() {
     jogoTravado = true;
 }
 
-function mostrarTutorial() {
-    const box = document.getElementById("tutorialBox");
-    if (box) {
-        box.style.display = "block";
-
-        // Espera uma tecla para continuar
-        window.addEventListener("keydown", fecharTutorial, { once: true });
-    }
-}
-
-function fecharTutorial() {
-    const box = document.getElementById("tutorialBox");
-    if (box) box.style.display = "none";
-}
-
 function mostrarTutorialIntro(onFecharTutorial) {
     const tutorialContainer = document.getElementById("tutorialIntro");
     const tutorialTexto = document.getElementById("tutorialTexto");
     const tutorialBtn = document.getElementById("tutorialBtn");
-    const tutorialImg = document.getElementById("tutorialImg");
+    const tutorialImg = document.createElement("img");
+    tutorialImg.id = "tutorialImg";
+    tutorialImg.alt = "Cesta de frutas";
+    tutorialImg.style.margin = "-10px";
+    const pularBtn = document.getElementById("pularTutorialBtn");
+    const tutorialTitulo = document.getElementById("tutorialTitulo");
 
-    // Cria ou seleciona o título
-    let tutorialTitulo = document.getElementById("tutorialTitulo");
-    if (!tutorialTitulo) {
-        tutorialTitulo = document.createElement("h2");
-        tutorialTitulo.id = "tutorialTitulo";
-        tutorialTitulo.style.textAlign = "center";
-        tutorialImg.parentNode.insertBefore(tutorialTitulo, tutorialImg);
+    // Garante que a imagem só seja adicionada uma vez
+    if (!document.getElementById("tutorialImg")) {
+        tutorialTitulo.parentNode.insertBefore(tutorialImg, tutorialTitulo.nextSibling);
     }
-    tutorialTitulo.textContent = "Como jogar?";
 
     const instrucoes = [
-        "🕹️ Use as setas ou W, A, S, D para se mover\n⚔️ Use Z ou Espaço para atacar",
-        "💖 Você começa com 5 vidas! \n 🍎 Colete frutas para ganhar vidas extras! \n 🍔 Evite comidas não saudáveis para não perder vidas!",
-        "👾 Mate TODOS os inimigos para avançar de fase e vencer!",
+        "🕹️ Use as setas ou W, A, S, D para se mover<br>⚔️ Use Z ou Espaço para atacar",
+        "💖 Você começa com 5 vidas!<br>🍎 Colete frutas para ganhar vidas extras!<br>🍔 Evite comidas não saudáveis para não perder vidas!",
+        "👾 Mate TODOS os inimigos para avançar de fase e vencer!"
     ];
 
     let index = 0;
-    tutorialTexto.innerHTML = instrucoes[index].replace(/\n/g, "<br>");
+    tutorialTexto.innerHTML = instrucoes[index];
     tutorialImg.src = "assets/items/fruitBasket.png";
-    tutorialImg.style.margin = "-10px";
     tutorialBtn.textContent = "Próximo";
     tutorialContainer.style.display = "flex";
 
     tutorialBtn.onclick = () => {
         index++;
-
         if (index < instrucoes.length) {
-            tutorialTexto.innerHTML = instrucoes[index].replace(/\n/g, "<br>");
-
+            tutorialTexto.innerHTML = instrucoes[index];
             if (index === instrucoes.length - 1) {
                 tutorialBtn.textContent = "Entendi!";
             }
         } else {
-            tutorialContainer.style.display = "none";
-            if (typeof onFecharTutorial === "function") {
-                onFecharTutorial();
-            }
+            fecharTutorial();
         }
     };
-}
 
+    pularBtn.onclick = fecharTutorial;
+
+    function fecharTutorial() {
+        tutorialContainer.style.display = "none";
+        if (typeof onFecharTutorial === "function") {
+            onFecharTutorial();
+        }
+    }
+}
 
 function mostrarIntroDaFase(fase, onFechar) {
     const introTexto = document.getElementById("introTexto");
@@ -447,27 +419,19 @@ function mostrarIntroDaFase(fase, onFechar) {
 
     introBtn.onclick = () => {
         index++;
-
         if (index < falas.length) {
             introTexto.textContent = falas[index];
-
-            // Muda imagem na segunda parte
             if (index === 1) {
                 introImg.src = "assets/cientista/cientista-doce.png";
             }
-
-            // Última fala → botão muda para "Entendi!"
             if (index === falas.length - 1) {
                 introBtn.textContent = "Entendi!";
             }
-
         } else {
             introContainer.style.display = "none";
             introBtn.textContent = "Próximo";
-            introImg.src = "assets/cientista/cientista-doce.png";
+            introImg.src = "assets/cientista/cientista.png";
             mostrarTutorialIntro(onFechar);
-
         }
     };
-
 }
