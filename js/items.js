@@ -48,7 +48,7 @@ class FruitBasket extends Sprite {
         super({
             position,
             source: "../assets/items/fruitBasket.png",
-            scale: 1.0
+            scale: 0.5
         });
         this.width = 16;
         this.height = 16;

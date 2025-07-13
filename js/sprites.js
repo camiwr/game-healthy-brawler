@@ -166,10 +166,19 @@ class Fighter extends Sprite {
         this.attackCooldown = 500
         this.onAttackCooldown
         this.facing = "right";
+        this.isHit = false;
+        this.hitTimer = 0;
+        this.hitDuration = 500; // milissegundos
+
 
         this.lastKeyPressed
         this.onGround
     }
+
+    receiveHit() {
+        this.isHit = true;
+        this.hitTimer = Date.now();
+    };
 
     applyMovement() {
         this.position.x += this.velocity.x;
@@ -195,6 +204,53 @@ class Fighter extends Sprite {
         this.draw()
         this.animate()
     }
+
+draw() {
+    const frameWidth = this.image.width / this.totalSpriteFrames;
+    const frameHeight = this.image.height;
+    const isCurrentlyHit = this.isHit && Date.now() - this.hitTimer < this.hitDuration;
+
+    ctx.save();
+
+    if (isCurrentlyHit) {
+        ctx.globalAlpha = 0.6;
+        ctx.filter = "brightness(2)";
+    }
+
+    ctx.imageSmoothingEnabled = false;
+
+    // Flip horizontal se estiver virado para a direita
+    const flip = this.facing === "right" ? -1 : 1;
+    const drawX = this.position.x - cameraOffsetX;
+    const drawY = this.position.y;
+
+    ctx.translate(
+        drawX + (flip === -1 ? frameWidth * this.scale : 0),
+        drawY
+    );
+    ctx.scale(flip, 1);
+
+    ctx.drawImage(
+        this.image,
+        this.currentSpriteFrame * frameWidth, // frame origem X
+        0,
+        frameWidth,
+        frameHeight,
+        0,
+        0,
+        frameWidth * this.scale,
+        frameHeight * this.scale
+    );
+
+    ctx.restore();
+
+    if (!isCurrentlyHit) {
+        this.isHit = false;
+    }
+}
+
+
+
 
     attack() {
         if (this.onAttackCooldown || this.isAttacking) return;
@@ -231,7 +287,7 @@ class Enemy extends Fighter {
         this.speed = 1.0;
         this.isDead = false;
         this.canDamage = true;
-        this.damageCooldown = 1000; 
+        this.damageCooldown = 1000;
         this.dropFruitBasket = options.dropFruitBasket || false;
     }
 
@@ -244,7 +300,7 @@ class Enemy extends Fighter {
 
                 setTimeout(() => {
                     this.shouldBeRemoved = true;
-                }, 600); // tempo pra desaparecer
+                }, 400); // tempo pra desaparecer
             }
 
             this.velocity.x = 0;
@@ -290,18 +346,18 @@ class Enemy extends Fighter {
         const dx = player.position.x - this.position.x;
         const dy = player.position.y - this.position.y;
         const dist = Math.hypot(dx, dy);
-        
+
         if (dist < 40 && this.canDamage) {
             simularDano(); // essa função já existe no seu game.js
             this.canDamage = false;
-            
+
             setTimeout(() => {
                 this.canDamage = true;
             }, this.damageCooldown);
         }
     }
-    
-    
+
+
 }
 
 class Background {

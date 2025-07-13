@@ -14,7 +14,7 @@
     <div id="floating-fruits">
         <img src="assets/items/apple.png" class="floating-fruit" style="top: 20%; left: 15%;" />
         <img src="assets/items/banana.png" class="floating-fruit" style="top: 30%; left: 70%;" />
-        <img src="assets/items/orange.png" class="floating-fruit" style="top: 60%; left: 25%;" />
+        <img src="assets/items/strawberry.png" class="floating-fruit" style="top: 60%; left: 25%;" />
         <img src="assets/items/grape.png" class="floating-fruit" style="top: 50%; left: 80%;" />
         <img src="assets/items/pear.png" class="floating-fruit" style="top: 75%; left: 55%;" />
     </div>
@@ -24,7 +24,6 @@
             width: 100vw;
             height: 100vh;
             pointer-events: none;
-            z-index: 0;
         }
         .floating-fruit {
             position: absolute;
@@ -97,7 +96,7 @@
         </div>
     </div>
 
-    <canvas id="gameCanvas" width="800" height="600" style="display: none;"></canvas>
+    <canvas id="gameCanvas" width="800" height="600" style="display: none; z-index: 9;"></canvas>
 
 
     <script src="./js/config.js"></script>

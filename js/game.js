@@ -276,7 +276,7 @@ function spawnFruitBasket(position) {
         position: {
             x: position.x,
             y: position.y
-        }
+        },
     });
 
     cesta.onCollect = () => {
@@ -340,6 +340,7 @@ function simularDano() {
     if (vidaAtual > 0) {
         vidaAtual--;
         console.log("Dano! Vida restante:", vidaAtual);
+        player.receiveHit();
     }
 }
 
@@ -347,6 +348,69 @@ function mostrarGameOver() {
     document.getElementById("gameOverScreen").style.display = "block";
     jogoTravado = true;
 }
+
+function mostrarTutorial() {
+    const box = document.getElementById("tutorialBox");
+    if (box) {
+        box.style.display = "block";
+
+        // Espera uma tecla para continuar
+        window.addEventListener("keydown", fecharTutorial, { once: true });
+    }
+}
+
+function fecharTutorial() {
+    const box = document.getElementById("tutorialBox");
+    if (box) box.style.display = "none";
+}
+
+function mostrarTutorialIntro(onFecharTutorial) {
+    const tutorialContainer = document.getElementById("tutorialIntro");
+    const tutorialTexto = document.getElementById("tutorialTexto");
+    const tutorialBtn = document.getElementById("tutorialBtn");
+    const tutorialImg = document.getElementById("tutorialImg");
+
+    // Cria ou seleciona o título
+    let tutorialTitulo = document.getElementById("tutorialTitulo");
+    if (!tutorialTitulo) {
+        tutorialTitulo = document.createElement("h2");
+        tutorialTitulo.id = "tutorialTitulo";
+        tutorialTitulo.style.textAlign = "center";
+        tutorialImg.parentNode.insertBefore(tutorialTitulo, tutorialImg);
+    }
+    tutorialTitulo.textContent = "Como jogar?";
+
+    const instrucoes = [
+        "🕹️ Use as setas ou W, A, S, D para se mover\n⚔️ Use Z ou Espaço para atacar",
+        "💖 Você começa com 5 vidas! \n 🍎 Colete frutas para ganhar vidas extras! \n 🍔 Evite comidas não saudáveis para não perder vidas!",
+        "👾 Mate TODOS os inimigos para avançar de fase e vencer!",
+    ];
+
+    let index = 0;
+    tutorialTexto.innerHTML = instrucoes[index].replace(/\n/g, "<br>");
+    tutorialImg.src = "assets/items/fruitBasket.png";
+    tutorialImg.style.margin = "-10px";
+    tutorialBtn.textContent = "Próximo";
+    tutorialContainer.style.display = "flex";
+
+    tutorialBtn.onclick = () => {
+        index++;
+
+        if (index < instrucoes.length) {
+            tutorialTexto.innerHTML = instrucoes[index].replace(/\n/g, "<br>");
+
+            if (index === instrucoes.length - 1) {
+                tutorialBtn.textContent = "Entendi!";
+            }
+        } else {
+            tutorialContainer.style.display = "none";
+            if (typeof onFecharTutorial === "function") {
+                onFecharTutorial();
+            }
+        }
+    };
+}
+
 
 function mostrarIntroDaFase(fase, onFechar) {
     const introTexto = document.getElementById("introTexto");
@@ -378,7 +442,7 @@ function mostrarIntroDaFase(fase, onFechar) {
 
     introTexto.textContent = falas[index];
     introImg.src = "assets/cientista/cientista.png";
-    introBtn.textContent = "Próximo >";
+    introBtn.textContent = "Próximo";
     introContainer.style.display = "flex";
 
     introBtn.onclick = () => {
@@ -399,9 +463,11 @@ function mostrarIntroDaFase(fase, onFechar) {
 
         } else {
             introContainer.style.display = "none";
-            introBtn.textContent = "Próximo >";
+            introBtn.textContent = "Próximo";
             introImg.src = "assets/cientista/cientista-doce.png";
-            onFechar();
+            mostrarTutorialIntro(onFechar);
+
         }
     };
+
 }

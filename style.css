@@ -14,7 +14,6 @@ body {
 /* Frutas flutuando */
 .fruit-floating {
   position: fixed;
-  z-index: 0;
   pointer-events: none;
   animation: floatFruit 2s linear infinite;
   opacity: 0.85;
