@@ -10,11 +10,43 @@
 </head>
 
 <body>
-    <video id="bgVideo" autoplay muted loop playsinline>
-        <source src="assets/background/fundo-inicial.mp4" type="video/mp4" />
-        Seu navegador não suporta vídeo.
-    </video>
+    <!-- Frutas flutuantes no background -->
+    <div id="floating-fruits">
+        <img src="assets/items/apple.png" class="floating-fruit" style="top: 20%; left: 15%;" />
+        <img src="assets/items/banana.png" class="floating-fruit" style="top: 30%; left: 70%;" />
+        <img src="assets/items/orange.png" class="floating-fruit" style="top: 60%; left: 25%;" />
+        <img src="assets/items/grape.png" class="floating-fruit" style="top: 50%; left: 80%;" />
+        <img src="assets/items/pear.png" class="floating-fruit" style="top: 75%; left: 55%;" />
+    </div>
+    <style>
+        #floating-fruits {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .floating-fruit {
+            position: absolute;
+            width: 60px;
+            height: auto;
+            opacity: 0.7;
+            animation: floatY 6s ease-in-out infinite alternate;
+        }
+        .floating-fruit:nth-child(2) { animation-delay: 1s; }
+        .floating-fruit:nth-child(3) { animation-delay: 2s; }
+        .floating-fruit:nth-child(4) { animation-delay: 3s; }
+        .floating-fruit:nth-child(5) { animation-delay: 4s; }
 
+        @keyframes floatY {
+            from { transform: translateY(0px) scale(1); }
+            to   { transform: translateY(-40px) scale(1.08); }
+        }
+    </style>
+
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; position: absolute; top: 35%; left: 51%; transform: translate(-50%, -50%); width: 100%;">
+        <img src="assets/background/logo.png" alt="Healthy Brawler" style="max-width: 500px; width: 90vw; height: auto; display: block;"/>
+    </div>
     <div id="menu">
         <button id="startButton">Começar</button>
     </div>
@@ -29,6 +61,8 @@
 
         </div>
     </div>
+
+
 
     <div id="gameOverScreen" style="display: none;">
         <h2>Game Over 💀</h2>
@@ -49,14 +83,19 @@
 
     <div id="faseIntro" style="display: none;">
         <div class="intro-box">
-            <img id="introImg" src="assets/cientista/cientista.png" alt="Cientista" class="intro-avatar" />
+            <img id="introImg" src="assets/items/fruitBasket.png" alt="Cesta de Frutas" class="intro-avatar" />
             <p id="introTexto"></p>
-            <button id="introBtn">Próximo ></button>
+            <button id="introBtn">Próximo</button>
         </div>
     </div>
 
-
-
+    <div id="tutorialIntro" style="display: none;">
+        <div class="intro-box">
+            <img id="tutorialImg" src="assets/cientista/cientista.png" alt="Cientista" class="intro-avatar" />
+            <p id="tutorialTexto"></p>
+            <button id="tutorialBtn">Entendi!</button>
+        </div>
+    </div>
 
     <canvas id="gameCanvas" width="800" height="600" style="display: none;"></canvas>
 
