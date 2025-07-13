@@ -11,8 +11,8 @@ class Sprite {
         this.velocity = velocity
 
         this.scale = scale || 1
-        this.image = new Image() 
-        this.image.src = source || defaultObjectSpritePath
+        // this.image = new Image()
+        // this.image.src = source || defaultObjectSpritePath
         this.width = this.image.width * this.scale
         this.height = this.image.height * this.scale
 
