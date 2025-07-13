@@ -1,8 +1,3 @@
-const gravity = 0.2
-
-const floorHeight = 96
-
-const backgroundSpritePath = "../assets/background/placeholder.png"
 const defaultObjectSpritePath = "../assets/objects/square.svg"
 
 class Sprite {
@@ -11,8 +6,8 @@ class Sprite {
         this.velocity = velocity
 
         this.scale = scale || 1
-        // this.image = new Image()
-        // this.image.src = source || defaultObjectSpritePath
+        this.image = new Image()
+        this.image.src = source || defaultObjectSpritePath
         this.width = this.image.width * this.scale
         this.height = this.image.height * this.scale
 
@@ -32,71 +27,93 @@ class Sprite {
             }
         }
 
-        this.currentSprite = this.sprites.idle
+        const firstSpriteKey = Object.keys(this.sprites)[0];
+        this.currentSprite = this.sprites[firstSpriteKey];
 
-        this.currentSpriteFrame = 0
-        this.elapsedTime = 0
-        this.totalSpriteFrames = this.sprites.idle.totalSpriteFrames
-        this.framesPerSpriteFrame = this.sprites.idle.framesPerSpriteFrame
+        this.totalSpriteFrames = this.currentSprite?.totalSpriteFrames || 1;
+        this.framesPerSpriteFrame = this.currentSprite?.framesPerSpriteFrame || 1;
+
+        this.currentSpriteFrame = 0;
+        this.elapsedTime = 0;
+
     }
 
     setSprite(sprite) {
-        this.currentSprite = this.sprites[sprite]
-
-        if (!this.currentSprite) {
-            this.currentSprite = this.sprites.idle
+        if (this.sprites[sprite]) {
+            this.currentSprite = this.sprites[sprite];
+        } else {
+            this.currentSprite = this.sprites.idle || this.sprites["idle_down"];
         }
+
+        this.currentSpriteFrame = 0;
+        this.elapsedTime = 0;
     }
 
     loadSprite() {
-        let previousSprite = this.image.src
-
-        this.image = new Image()
-        this.image.src = this.currentSprite.src
-        this.width = this.image.width * this.scale
-        this.height = this.image.height * this.scale
-
-        this.totalSpriteFrames = this.currentSprite.totalSpriteFrames
-        this.framesPerSpriteFrame = this.currentSprite.framesPerSpriteFrame
-
-        let newSprite = this.image.src
-
-        if (previousSprite !== newSprite) {
-            // Corrects the sprite's position when switching sprites
-            console.log("Detected sprite change: ", previousSprite.split("/").pop(), " -> ", newSprite.split("/").pop())
-            
-            let previousSpriteImage = new Image()
-            previousSpriteImage.src = previousSprite
-
-            // Corrects the sprite's position:
-            this.position.y += (previousSpriteImage.height - this.image.height) * this.scale
+        if (!this.currentSprite) {
+            console.warn("currentSprite está undefined em loadSprite()");
+            return;
         }
+
+        // Se já estiver carregada, não recarrega
+        if (this.image.src === this.currentSprite.src) return;
+
+        const newImage = new Image();
+        newImage.onload = () => {
+            this.image = newImage;
+
+            this.totalSpriteFrames = this.currentSprite.totalSpriteFrames;
+            this.framesPerSpriteFrame = this.currentSprite.framesPerSpriteFrame;
+
+            this.width = newImage.width * this.scale;
+            this.height = newImage.height * this.scale;
+        };
+
+        newImage.src = this.currentSprite.src;
     }
 
-    draw() {        
+    draw() {
+        if (!this.image || this.totalSpriteFrames <= 0) return;
+        this.loadSprite();
+
         ctx.imageSmoothingEnabled = false;
 
-        // Determine the x-scale based on the facing direction
-        const xScale = this.facing === "left" ? -1 : 1;
-
         ctx.save();
-        ctx.translate(this.position.x + this.offset.x, this.position.y + this.offset.y);
-        ctx.scale(xScale, 1); // Flip the image horizontally if facing left
+
+        const frameWidth = this.image.width / this.totalSpriteFrames;
+        const hasRow = this.currentSprite?.row !== undefined;
+        const rowIndex = hasRow ? this.currentSprite.row : 0;
+        const frameHeight = hasRow
+            ? this.image.height / 3 // ou ajuste para o total real de linhas
+            : this.image.height;
+
+        const flip = this.facing === "right" ? -1 : 1;
+
+        const drawX = this.position.x - cameraOffsetX + this.offset.x;
+        const drawY = this.position.y + this.offset.y;
+
+        // Centraliza o sprite ao inverter horizontalmente
+        ctx.translate(
+            drawX + (flip === -1 ? frameWidth * this.scale : 0),
+            drawY
+        );
+        ctx.scale(flip, 1);
 
         ctx.drawImage(
             this.image,
-            this.currentSpriteFrame * this.image.width / this.totalSpriteFrames,
+            this.currentSpriteFrame * frameWidth,
+            rowIndex * frameHeight,
+            frameWidth,
+            frameHeight,
             0,
-            this.image.width / this.totalSpriteFrames,
-            this.image.height,
             0,
-            0,
-            this.width / this.totalSpriteFrames * xScale, // Adjust the width with x-scale
-            this.height
+            frameWidth * this.scale,
+            frameHeight * this.scale
         );
 
         ctx.restore();
     }
+
 
     animate() {
         this.elapsedTime += 1
@@ -110,7 +127,7 @@ class Sprite {
 
             this.elapsedTime = 0
         }
-        
+
     }
 
     update() {
@@ -148,117 +165,237 @@ class Fighter extends Sprite {
         this.isAttacking
         this.attackCooldown = 500
         this.onAttackCooldown
+        this.facing = "right";
 
         this.lastKeyPressed
         this.onGround
     }
 
-    gravity() {
-        if (this.position.y + this.height >= canvas.height - floorHeight) {
-            this.onGround = true
-        } else {
-            this.onGround = false
+    applyMovement() {
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+
+        if (this.position.y < MAP_Y_MIN) {
+            this.position.y = MAP_Y_MIN;
+            this.velocity.y = 0;
+        }
+        if (this.position.y + this.height > MAP_Y_MAX) {
+            this.position.y = MAP_Y_MAX - this.height;
+            this.velocity.y = 0;
         }
 
-        if (this.position.y + this.height > canvas.height - floorHeight) {
-            this.position.y = canvas.height - this.height - floorHeight
-            this.velocity.y = 0
-        } else {
-            if (!this.onGround) this.velocity.y += gravity
-        }
-
-        this.position.x += this.velocity.x
-        this.position.y += this.velocity.y
-
-        this.attackBox.position.x = this.position.x
-        this.attackBox.position.y = this.position.y
+        this.attackBox.position.x = this.position.x;
+        this.attackBox.position.y = this.position.y;
     }
-        
+
+
     update() {
-        this.gravity()
+        this.applyMovement()
         this.loadSprite()
-        //this.loadAttackBox()
         this.draw()
         this.animate()
     }
 
     attack() {
-        if (this.onAttackCooldown) return
+        if (this.onAttackCooldown || this.isAttacking) return;
 
-        this.isAttacking = true
-        this.onAttackCooldown = true
+        this.isAttacking = true;
+        this.onAttackCooldown = true;
 
-        player.setSprite("attacking")
+        const direction = this.facing || "right";
+        const spriteKey = `attacking_${direction}`;
+
+        if (this.sprites[spriteKey]) {
+            this.setSprite(spriteKey);
+        } else {
+            console.warn("Sprite de ataque não encontrado:", spriteKey);
+            this.setSprite("idle");
+        }
 
         setTimeout(() => {
-            this.isAttacking = false
-        }, 400)
+            this.isAttacking = false;
+        }, 400);
 
         setTimeout(() => {
-            this.onAttackCooldown = false
-        }, this.attackCooldown)
+            this.onAttackCooldown = false;
+        }, this.attackCooldown);
     }
 
-    jump() {        
-        if (!this.onGround) return
-        this.velocity.y = -8.5
-    }
 
 }
 
+class Enemy extends Fighter {
+    constructor(options) {
+        super(options);
+        this.health = 1;
+        this.speed = 1.0;
+        this.isDead = false;
+        this.canDamage = true;
+        this.damageCooldown = 1000; 
+        this.dropFruitBasket = options.dropFruitBasket || false;
+    }
+
+    update() {
+        if (this.isDead) {
+            if (!this.deathTimerStarted) {
+                this.setSprite("death");
+                this.currentSpriteFrame = 0;
+                this.deathTimerStarted = true;
+
+                setTimeout(() => {
+                    this.shouldBeRemoved = true;
+                }, 600); // tempo pra desaparecer
+            }
+
+            this.velocity.x = 0;
+            this.velocity.y = 0;
+        } else {
+            this.moveTowardPlayer();
+            this.tryAttackPlayer();
+        }
+
+        super.update();
+    }
+
+
+
+    moveTowardPlayer() {
+        const dx = player.position.x - this.position.x;
+        const dy = player.position.y - this.position.y;
+        const dist = Math.hypot(dx, dy);
+
+        if (dist > 10) {
+            this.velocity.x = (dx / dist) * this.speed;
+            this.velocity.y = (dy / dist) * this.speed;
+            this.setSprite("running");
+        } else {
+            this.velocity.x = 0;
+            this.velocity.y = 0;
+            this.setSprite("idle_down");
+        }
+
+    }
+
+    takeDamage() {
+        this.health--;
+        if (this.health <= 0 && !this.isDead) {
+            this.isDead = true;
+            this.setSprite("death");
+            this.velocity.x = 0;
+            this.velocity.y = 0;
+        }
+    }
+
+    tryAttackPlayer() {
+        const dx = player.position.x - this.position.x;
+        const dy = player.position.y - this.position.y;
+        const dist = Math.hypot(dx, dy);
+        
+        if (dist < 40 && this.canDamage) {
+            simularDano(); // essa função já existe no seu game.js
+            this.canDamage = false;
+            
+            setTimeout(() => {
+                this.canDamage = true;
+            }, this.damageCooldown);
+        }
+    }
+    
+    
+}
+
+class Background {
+    constructor(imagePath) {
+        this.image = new Image();
+        this.image.src = imagePath;
+        this.width = 1024; // ajuste para o tamanho real do seu background
+        this.height = 576;
+    }
+
+    update() {
+        const repeatCount = Math.ceil(MAP_WIDTH / this.width) + 1;
+
+        for (let i = 0; i < repeatCount; i++) {
+            ctx.drawImage(
+                this.image,
+                i * this.width - cameraOffsetX,
+                0,
+                this.width,
+                this.height
+            );
+        }
+    }
+}
+
+const background = new Background("../assets/background/bg-city.jpeg");
+
 const player = new Fighter({
-    position: {
-        x: 100,
-        y: 0
-    },
-    velocity: {
-        x: 0,
-        y: 10
-    }, 
-    scale: 4,
+    position: { x: 100, y: 300 },
+    velocity: { x: 0, y: 10 },
+    scale: 6,
     sprites: {
-        idle: {
-            src: "../assets/player/idle.png",
-            totalSpriteFrames: 11,
-            framesPerSpriteFrame: 18
+        idle_down: {
+            src: "../assets/player/FrontIdle.png",
+            totalSpriteFrames: 4,
+            framesPerSpriteFrame: 10
         },
-        running: {
-            src: "../assets/player/running.png",
-            totalSpriteFrames: 10,
-            framesPerSpriteFrame: 8
+        idle_up: {
+            src: "../assets/player/BackIdle.png",
+            totalSpriteFrames: 4,
+            framesPerSpriteFrame: 10
         },
-        jumping: {
-            src: "../assets/player/jumping.png",
+        idle_left: {
+            src: "../assets/player/SideIdle.png",
+            totalSpriteFrames: 4,
+            framesPerSpriteFrame: 10
+        },
+        idle_right: {
+            src: "../assets/player/SideIdle.png",
+            totalSpriteFrames: 4,
+            framesPerSpriteFrame: 10
+        },
+        walk_down: {
+            src: "../assets/player/FrontRun.png",
+            totalSpriteFrames: 4,
+            framesPerSpriteFrame: 10
+        },
+        walk_up: {
+            src: "../assets/player/BackRun.png",
+            totalSpriteFrames: 4,
+            framesPerSpriteFrame: 10
+        },
+        walk_left: {
+            src: "../assets/player/SideRun.png",
+            totalSpriteFrames: 4,
+            framesPerSpriteFrame: 10
+        },
+        walk_right: {
+            src: "../assets/player/SideRun.png",
+            totalSpriteFrames: 4,
+            framesPerSpriteFrame: 10
+        },
+        attacking_down: {
+            src: "../assets/player/FrontAttack.png",
             totalSpriteFrames: 4,
             framesPerSpriteFrame: 8
         },
-        attacking: {
-            src: "../assets/player/attacking.png",
-            totalSpriteFrames: 7,
+        attacking_up: {
+            src: "../assets/player/BackAttack.png",
+            totalSpriteFrames: 4,
+            framesPerSpriteFrame: 8
+        },
+        attacking_left: {
+            src: "../assets/player/SideAttack.png",
+            totalSpriteFrames: 4,
+            framesPerSpriteFrame: 8
+        },
+        attacking_right: {
+            src: "../assets/player/SideAttack.png",
+            totalSpriteFrames: 4,
             framesPerSpriteFrame: 8
         }
     }
-})
+});
 
-/* const player2 = new Fighter({
-    position: {
-        x: 500,
-        y: 20
-    },
-    velocity: {
-        x: 0,
-        y: 0
-    },
-    dimensions: {
-        width: 50,
-        height: 200
-    }
-}) */
 
-const background = new Sprite({
-    position: {
-        x: 0,
-        y: 0
-    },
-    source: backgroundSpritePath
-})
+
