@@ -97,19 +97,21 @@
     <div id="gameOverScreen" style="display: none;">
         <h2>Game Over 💀</h2>
         <div class="game-over-buttons">
-            <button id="backToMenuButton">Voltar para o começo</button>
+            <button class="backToMenuButton">Voltar para o começo</button>
         </div>
     </div>
     <div id="victoryScreen" class="hidden">
         <div class="victory-box">
             <h2>🎉 Parabéns! Você venceu!</h2>
-            <button id="backToMenuButton">Voltar para o começo</button>
+            <button class="backToMenuButton">Voltar para o começo</button>
         </div>
     </div>
     <script>
-        document.getElementById('backToMenuButton').onclick = function() {
-            window.location.href = 'index.html';
-        };
+        document.querySelectorAll('.backToMenuButton').forEach(function(btn) {
+            btn.onclick = function() {
+                window.location.href = 'index.html';
+            };
+        });
     </script>
 
 

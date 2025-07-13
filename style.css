@@ -283,6 +283,32 @@ body {
   font-size: 1rem;
 }
 
+.backToMenuButton {
+  background: linear-gradient(135deg, #a7e7b3 0%, #7ace8b 100%);
+  color: #222;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 14px;
+  font-size: 18px;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(50, 150, 80, 0.15);
+  cursor: pointer;
+  transition: 
+    background 0.25s,
+    transform 0.18s,
+    box-shadow 0.18s,
+    color 0.18s;
+  letter-spacing: 1px;
+}
+
+.backToMenuButton:hover {
+  background: linear-gradient(135deg, #7ace8b 0%, #5dbf6e 100%);
+  color: #fff;
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 24px rgba(50, 150, 80, 0.22);
+}
+
 #tutorialIntro {
   position: absolute;
   top: 0;
