@@ -7,3 +7,12 @@ Healthy Brawler é um jogo educativo 2D desenvolvido com HTML5, JavaScript e <ca
 
 ## 🎯 Objetivo
 Ensinar, de forma lúdica e divertida, conceitos sobre alimentação saudável enquanto o jogador se movimenta, pula, luta contra inimigos e desbloqueia fases temáticas com diferentes alimentos.
+
+### DEMO
+
+Experimente a [demo] online
+
+[demo]: <https://game-healthy-brawler.vercel.app/>
+
+### Versão
+1.0.0
