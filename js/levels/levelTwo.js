@@ -68,7 +68,7 @@ function iniciarFase2() {
                 }
             })
         );
-
-        animate();
     });
+    
+    animate();
 }

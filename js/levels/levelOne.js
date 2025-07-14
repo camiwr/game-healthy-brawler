@@ -1,7 +1,4 @@
 function iniciarFase1() {
-    jogoTravado = true;
-    faseIniciada = false;
-
     background = new Background("../../assets/background/bgcity.png");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#fff";
@@ -28,7 +25,7 @@ function iniciarFase1() {
         // 👾 Inimigos da fase 1
         enemies.push(
             new Enemy({
-                position: { x: 3000, y: 400 },
+                position: { x: 1000, y: 500 },
                 velocity: { x: 0, y: 0 },
                 scale: 2.5,
                 sprites: {
@@ -50,7 +47,7 @@ function iniciarFase1() {
                 }
             }),
             new Enemy({
-                position: { x: 3200, y: 500 },
+                position: { x: 2000, y: 400 },
                 velocity: { x: 0, y: 0 },
                 scale: 2.5,
                 sprites: {
@@ -72,7 +69,7 @@ function iniciarFase1() {
                 }
             }),
             new Enemy({
-                position: { x: 6000, y: 420 },
+                position: { x: 4000, y: 420 },
                 dropFruitBasket: true,
                 velocity: { x: 0, y: 0 },
                 scale: 2.5,
@@ -95,8 +92,8 @@ function iniciarFase1() {
                 }
             })
         );
-        jogoTravado = false;
-        faseIniciada = true;
-        animate();
+
     });
+
+    animate();
 }

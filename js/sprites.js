@@ -292,27 +292,6 @@ class Enemy extends Fighter {
     }
 
     update() {
-        // Não atualiza inimigo enquanto tutorial está aberto
-        if (mostrarTutorialIntro.aberto) {
-            this.velocity.x = 0;
-            this.velocity.y = 0;
-            this.setSprite("idle_down");
-            super.update();
-            return;
-        }
-
-        // Detecta quando o tutorial for fechado
-        if (this.tutorialEstavaAberto === undefined) {
-            this.tutorialEstavaAberto = mostrarTutorialIntro.aberto;
-        }
-        if (this.tutorialEstavaAberto && !mostrarTutorialIntro.aberto) {
-            // O tutorial acabou de ser fechado
-            if (typeof this.onTutorialFechado === "function") {
-                this.onTutorialFechado();
-            }
-        }
-        this.tutorialEstavaAberto = mostrarTutorialIntro.aberto;
-
         if (this.isDead) {
             if (!this.deathTimerStarted) {
                 this.setSprite("death");
@@ -326,15 +305,10 @@ class Enemy extends Fighter {
 
             this.velocity.x = 0;
             this.velocity.y = 0;
-        } else if (faseIniciada) {
+        } else{
             this.moveTowardPlayer();
             this.tryAttackPlayer();
-        } else {
-            this.velocity.x = 0;
-            this.velocity.y = 0;
-            this.setSprite("idle_down");
         }
-
         super.update();
     }
 
@@ -372,21 +346,6 @@ class Enemy extends Fighter {
     }
 
     tryAttackPlayer() {
-        // Se o tutorial estiver aberto, não ataca o player
-        if (mostrarTutorialIntro.aberto) return;
-
-        // Detecta quando o tutorial for fechado
-        if (this.tutorialEstavaAberto === undefined) {
-            this.tutorialEstavaAberto = mostrarTutorialIntro.aberto;
-        }
-        if (this.tutorialEstavaAberto && !mostrarTutorialIntro.aberto) {
-            // O tutorial acabou de ser fechado
-            if (typeof this.onTutorialFechado === "function") {
-            this.onTutorialFechado();
-            }
-        }
-        this.tutorialEstavaAberto = mostrarTutorialIntro.aberto;
-
         const dx = player.position.x - this.position.x;
         const dy = player.position.y - this.position.y;
         const dist = Math.hypot(dx, dy);
