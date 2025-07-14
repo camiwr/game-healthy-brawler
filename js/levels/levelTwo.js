@@ -1,6 +1,6 @@
-const back = new Background("../assets/background/bg-floresta.jpeg");
 
 function iniciarFase2() {
+    background = new Background("../../assets/background/bg-park.jpg");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);

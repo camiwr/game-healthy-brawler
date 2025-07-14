@@ -22,13 +22,13 @@
 
         <!-- Duplicadas em posições diferentes -->
         <img src="assets/items/maca.png" class="floating-fruit" style="top: 65%; left: 10%;" />
+        <img src="assets/items/maca.png" class="floating-fruit" style="top: 85%; left: 80%;" />
         <img src="assets/items/strawberry.png" class="floating-fruit" style="top: 15%; left: 60%;" />
         <img src="assets/items/banana.png" class="floating-fruit" style="top: 80%; left: 35%;" />
         <img src="assets/items/tomato.png" class="floating-fruit" style="top: 25%; left: 90%;" />
         <img src="assets/items/grape.png" class="floating-fruit" style="top: 55%; left: 65%;" />
         <img src="assets/items/milho.png" class="floating-fruit" style="top: 35%; left: 20%;" />
         <img src="assets/items/abacaxi.png" class="floating-fruit" style="top: 5%; left: 45%;" />
-
 
     </div>
     <style>
@@ -76,7 +76,7 @@
 
     <div
         style="display: flex; flex-direction: column; align-items: center; justify-content: center; position: absolute; top: 35%; left: 51%; transform: translate(-50%, -50%); width: 100%;">
-        <img src="assets/background/logo.png" alt="Healthy Brawler"
+        <img src="assets/effects/logo-bw.png" alt="Healthy Brawler"
             style="max-width: 500px; width: 90vw; height: auto; display: block;" />
     </div>
     <div id="menu">
@@ -86,10 +86,10 @@
     <div id="faseMenu" style="display: none;">
         <h2>Escolha uma Fase</h2>
         <div class="fase-grid">
-            <button class="faseBtn" data-fase="1"> Fase 1: 🍎</button>
-            <button class="faseBtn" data-fase="2"> Fase 2: 🥕</button>
-            <button class="faseBtn" data-fase="3"> Fase 3: 💧</button>
-            <button class="faseBtn" data-fase="4"> Fase 4: 👑 Chefão Final</button>
+            <button class="faseBtn" data-fase="1"> Fase 1</button>
+            <button class="faseBtn" data-fase="2"> Fase 2</button>
+            <button class="faseBtn" data-fase="3"> Fase 3</button>
+            <button class="faseBtn" data-fase="4"> Fase 4 👑</button>
 
         </div>
     </div>
@@ -113,7 +113,6 @@
             };
         });
     </script>
-
 
 
     <div id="faseIntro" style="display: none;">
@@ -143,6 +142,7 @@
     <script src="./js/items.js"></script>
     <script src="./js/levels/levelOne.js"></script>
     <script src="./js/levels/levelTwo.js"></script>
+    <script src="./js/levelLoader.js"></script>
     <script src="./js/game.js"></script>
 </body>
 

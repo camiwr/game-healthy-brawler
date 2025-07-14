@@ -84,7 +84,7 @@ class Sprite {
         const hasRow = this.currentSprite?.row !== undefined;
         const rowIndex = hasRow ? this.currentSprite.row : 0;
         const frameHeight = hasRow
-            ? this.image.height / 3 // ou ajuste para o total real de linhas
+            ? this.image.height / 3
             : this.image.height;
 
         const flip = this.facing === "right" ? -1 : 1;
@@ -168,7 +168,7 @@ class Fighter extends Sprite {
         this.facing = "right";
         this.isHit = false;
         this.hitTimer = 0;
-        this.hitDuration = 500; // milissegundos
+        this.hitDuration = 450; // milissegundos
 
 
         this.lastKeyPressed
@@ -205,49 +205,49 @@ class Fighter extends Sprite {
         this.animate()
     }
 
-draw() {
-    const frameWidth = this.image.width / this.totalSpriteFrames;
-    const frameHeight = this.image.height;
-    const isCurrentlyHit = this.isHit && Date.now() - this.hitTimer < this.hitDuration;
+    draw() {
+        const frameWidth = this.image.width / this.totalSpriteFrames;
+        const frameHeight = this.image.height;
+        const isCurrentlyHit = this.isHit && Date.now() - this.hitTimer < this.hitDuration;
 
-    ctx.save();
+        ctx.save();
 
-    if (isCurrentlyHit) {
-        ctx.globalAlpha = 0.6;
-        ctx.filter = "brightness(2)";
+        if (isCurrentlyHit) {
+            ctx.globalAlpha = 0.6;
+            ctx.filter = "brightness(2)";
+        }
+
+        ctx.imageSmoothingEnabled = false;
+
+        // Flip horizontal se estiver virado para a direita
+        const flip = this.facing === "right" ? -1 : 1;
+        const drawX = this.position.x - cameraOffsetX;
+        const drawY = this.position.y;
+
+        ctx.translate(
+            drawX + (flip === -1 ? frameWidth * this.scale : 0),
+            drawY
+        );
+        ctx.scale(flip, 1);
+
+        ctx.drawImage(
+            this.image,
+            this.currentSpriteFrame * frameWidth, // frame origem X
+            0,
+            frameWidth,
+            frameHeight,
+            0,
+            0,
+            frameWidth * this.scale,
+            frameHeight * this.scale
+        );
+
+        ctx.restore();
+
+        if (!isCurrentlyHit) {
+            this.isHit = false;
+        }
     }
-
-    ctx.imageSmoothingEnabled = false;
-
-    // Flip horizontal se estiver virado para a direita
-    const flip = this.facing === "right" ? -1 : 1;
-    const drawX = this.position.x - cameraOffsetX;
-    const drawY = this.position.y;
-
-    ctx.translate(
-        drawX + (flip === -1 ? frameWidth * this.scale : 0),
-        drawY
-    );
-    ctx.scale(flip, 1);
-
-    ctx.drawImage(
-        this.image,
-        this.currentSpriteFrame * frameWidth, // frame origem X
-        0,
-        frameWidth,
-        frameHeight,
-        0,
-        0,
-        frameWidth * this.scale,
-        frameHeight * this.scale
-    );
-
-    ctx.restore();
-
-    if (!isCurrentlyHit) {
-        this.isHit = false;
-    }
-}
 
 
 
@@ -300,20 +300,23 @@ class Enemy extends Fighter {
 
                 setTimeout(() => {
                     this.shouldBeRemoved = true;
-                }, 400); // tempo pra desaparecer
+                }, 400);
             }
 
             this.velocity.x = 0;
             this.velocity.y = 0;
         } else {
-            this.moveTowardPlayer();
-            this.tryAttackPlayer();
+            if (!jogoTravado) {
+                this.moveTowardPlayer();
+                this.tryAttackPlayer();
+            } else {
+                this.setSprite("idle_down"); // ou "idle" dependendo do sprite
+                this.velocity.x = 0;
+                this.velocity.y = 0;
+            }
         }
-
         super.update();
     }
-
-
 
     moveTowardPlayer() {
         const dx = player.position.x - this.position.x;
@@ -324,12 +327,18 @@ class Enemy extends Fighter {
             this.velocity.x = (dx / dist) * this.speed;
             this.velocity.y = (dy / dist) * this.speed;
             this.setSprite("running");
+
+            // Inverte o sprite quando andar para a direita
+            if (this.velocity.x > 0) {
+                this.facing = "left";
+            } else if (this.velocity.x < 0) {
+                this.facing = "right";
+            }
         } else {
             this.velocity.x = 0;
             this.velocity.y = 0;
             this.setSprite("idle_down");
         }
-
     }
 
     takeDamage() {
@@ -348,7 +357,7 @@ class Enemy extends Fighter {
         const dist = Math.hypot(dx, dy);
 
         if (dist < 40 && this.canDamage) {
-            simularDano(); // essa função já existe no seu game.js
+            simularDano();
             this.canDamage = false;
 
             setTimeout(() => {
@@ -356,15 +365,13 @@ class Enemy extends Fighter {
             }, this.damageCooldown);
         }
     }
-
-
 }
 
 class Background {
     constructor(imagePath) {
         this.image = new Image();
         this.image.src = imagePath;
-        this.width = 1024; // ajuste para o tamanho real do seu background
+        this.width = 4000;
         this.height = 576;
     }
 

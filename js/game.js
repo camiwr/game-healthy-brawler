@@ -18,6 +18,7 @@ let items = [];
 let enemies = [];
 let projectiles = [];
 let animFrameId;
+let background;
 let cameraOffsetX = 0;
 let lastEnemy = null;
 let lag = 0;
@@ -38,14 +39,6 @@ startButton.addEventListener("click", () => {
     faseMenu.style.display = "block";
 });
 
-document.querySelectorAll(".faseBtn").forEach(button => {
-    button.addEventListener("click", () => {
-        const faseSelecionada = button.dataset.fase;
-        faseMenu.style.display = "none";
-        canvas.style.display = "block";
-        iniciarFase(faseSelecionada);
-    });
-});
 
 function checkCollision(a, b) {
     const aWidth = a.width || 16;
@@ -149,26 +142,10 @@ function animate() {
         // Subtrai tempo acumulado
         lag -= frameTime;
 
-        // (Debug visual) Mostra hitbox do player
-        const playerWidth = (player.image.width / player.totalSpriteFrames) * player.scale;
-        const playerHeight = player.image.height * player.scale;
-
-        ctx.strokeStyle = "red";
-        ctx.strokeRect(
-            player.position.x - cameraOffsetX,
-            player.position.y,
-            playerWidth,
-            playerHeight
-        );
     }
 
     // Chama o próximo frame
     window.requestAnimationFrame(animate);
-
-    // Exibe contador de itens na tela
-    ctx.fillStyle = "white";
-    ctx.font = "20px Arial";
-    ctx.fillText(`Itens ativos: ${items.length}`, 20, 90);
 
     // Desenha barra de vida do jogador
     desenharBarraDeVida();
@@ -206,24 +183,71 @@ function iniciarFase(fase) {
 }
 
 function desenharBarraDeVida() {
-    const coracaoCheio = "❤️";
-    const coracaoVazio = "🖤";
+    // Imagens dos corações
+    const heartFull = new Image();
+    heartFull.src = "assets/ui/heart.png";
+    const heartEmpty = new Image();
+    heartEmpty.src = "assets/ui/heartBlack.png";
 
-    let coracoes = "";
-    for (let i = 1; i <= vidaMaxima; i++) {
-        coracoes += i <= vidaAtual ? coracaoCheio : coracaoVazio;
+    const x = 24;
+    const y = 24;
+    const heartSize = 28;
+    const spacing = 8;
+
+    // Fundo simples com leve sombra e bordas arredondadas
+    ctx.save();
+    ctx.globalAlpha = 0.92;
+    ctx.fillStyle = "#fff";
+    ctx.shadowColor = "#d32f2f";
+    ctx.shadowBlur = 4;
+    const rectX = x - 14;
+    const rectY = y - 10;
+    const rectW = vidaMaxima * (heartSize + spacing) + 18;
+    const rectH = heartSize + 18;
+    const radius = 18;
+    ctx.beginPath();
+    ctx.moveTo(rectX + radius, rectY);
+    ctx.lineTo(rectX + rectW - radius, rectY);
+    ctx.quadraticCurveTo(rectX + rectW, rectY, rectX + rectW, rectY + radius);
+    ctx.lineTo(rectX + rectW, rectY + rectH - radius);
+    ctx.quadraticCurveTo(rectX + rectW, rectY + rectH, rectX + rectW - radius, rectY + rectH);
+    ctx.lineTo(rectX + radius, rectY + rectH);
+    ctx.quadraticCurveTo(rectX, rectY + rectH, rectX, rectY + rectH - radius);
+    ctx.lineTo(rectX, rectY + radius);
+    ctx.quadraticCurveTo(rectX, rectY, rectX + radius, rectY);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+    // Desenha corações
+    for (let i = 0; i < vidaMaxima; i++) {
+        const img = i < vidaAtual ? heartFull : heartEmpty;
+        ctx.save();
+        ctx.shadowColor = "#d32f2f";
+        ctx.shadowBlur = 4;
+        ctx.drawImage(
+            img,
+            x + i * (heartSize + spacing),
+            y,
+            heartSize,
+            heartSize
+        );
+        ctx.restore();
     }
 
-    ctx.font = "24px Fredoka, sans-serif";
+    // Opcional: texto discreto
+    ctx.save();
+    ctx.font = "bold 18px Fredoka, sans-serif";
     ctx.fillStyle = "#000";
-    ctx.strokeStyle = "#000";
-    ctx.fillText("Vidas: " + coracoes, 20, 40);
+    ctx.globalAlpha = 0.8;
+    ctx.fillText("Vidas", x - 10, y + heartSize + 16);
+    ctx.restore();
 
     if (vidaAtual === 0) {
         mostrarGameOver();
     }
-
 }
+
 
 function simularDano() {
     if (vidaAtual > 0) {
