@@ -19,6 +19,7 @@ let enemies = [];
 let projectiles = [];
 let animFrameId;
 let background;
+let faseIniciada = false;
 let cameraOffsetX = 0;
 let lastEnemy = null;
 let lag = 0;
@@ -26,13 +27,6 @@ let vidaAtual = 5;
 let jogoTravado = false;
 let fruitBasketSpawned = false;
 let prevTime = performance.now();
-
-
-items.push(new Item({ position: { x: 600, y: 400 }, type: "apple" }));
-items.push(new Item({ position: { x: 1300, y: 500 }, type: "apple" }));
-items.push(new Item({ position: { x: 1000, y: 380 }, type: "hamburguer" }));
-items.push(new Item({ position: { x: 1500, y: 420 }, type: "hamburguer" }));
-
 
 startButton.addEventListener("click", () => {
     menu.style.display = "none";
@@ -308,6 +302,7 @@ function mostrarTutorialIntro(onFecharTutorial) {
         tutorialContainer.style.display = "none";
         if (typeof onFecharTutorial === "function") {
             onFecharTutorial();
+            console.log("Tutorial fechado");
         }
     }
 }

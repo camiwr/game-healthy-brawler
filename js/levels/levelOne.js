@@ -1,6 +1,7 @@
-
-// Itens e inimigos da fase 1
 function iniciarFase1() {
+    jogoTravado = true;
+    faseIniciada = false;
+
     background = new Background("../../assets/background/bgcity.png");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#fff";
@@ -8,7 +9,6 @@ function iniciarFase1() {
     ctx.fillStyle = "#000";
     ctx.font = "30px Arial";
      
-    jogoTravado = true;
     mostrarIntroDaFase("1", () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         vidaAtual = vidaMaxima;
@@ -18,7 +18,7 @@ function iniciarFase1() {
         fruitBasketSpawned = false;
 
         // 🍎 Itens da fase 1
-        items.push(new Item({ position: { x: 1000, y: 400 }, type: "apple" }));
+        items.push(new Item({ position: { x: 1000, y: 400 }, type: "hamburguer" }));
         items.push(new Item({ position: { x: 1300, y: 500 }, type: "apple" }));
         items.push(new Item({ position: { x: 2500, y: 460 }, type: "apple" }));
         items.push(new Item({ position: { x: 600, y: 380 }, type: "hamburguer" }));
@@ -96,6 +96,7 @@ function iniciarFase1() {
             })
         );
         jogoTravado = false;
+        faseIniciada = true;
         animate();
     });
 }
