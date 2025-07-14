@@ -97,7 +97,7 @@ function animate() {
 
             // Verifica colisão com inimigos
             enemies.forEach(enemy => {
-                if (!enemy.isDead && checkCollision(proj, enemy)) {
+                if (!enemy.isDead && checkCollision(proj, enemy) && proj.owner !== enemy){
                     console.log("Fireball acertou um inimigo!");
                     enemy.takeDamage?.();
                     proj.shouldBeRemoved = true;
@@ -127,7 +127,11 @@ function animate() {
         items = items.filter(item => !item.collected);
 
         // Atualiza inimigos
-        enemies.forEach(enemy => enemy.update());
+        enemies.forEach(enemy => {
+            if (enemy && typeof enemy.update === "function") {
+                enemy.update();
+            }
+        });
 
 
         // Remove inimigos mortos
@@ -159,6 +163,11 @@ function spawnFruitBasket(position) {
 
     items.push(cesta);
     fruitBasketSpawned = true;
+}
+
+function spawnCrown(position) {
+    const crown = new CrownDrop(position);
+    items.push(crown);
 }
 
 function showVictoryScreen() {
