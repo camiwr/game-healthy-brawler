@@ -10,9 +10,7 @@ class Boss {
         this.scale = scale;
         this.sprites = sprites;
         this.image = new Image();
-
         this.setSprite("running");
-
         this.health = 15;
         this.maxHealth = 15;
         this.speed = 1.2;
@@ -20,18 +18,13 @@ class Boss {
         this.lastAttackTime = 0;
         this.isDead = false;
         this.shouldBeRemoved = false;
-
         this.frameIndex = 0;
         this.elapsed = 0;
-
         this.width = 64;
         this.height = 64;
-
         this.dropCrown = true;
-
-        this.facingLeft = false; // novo: controla direção
-
-        this.isAttacking = false; // controla animação de ataque
+        this.facingLeft = false; 
+        this.isAttacking = false; 
     }
 
     setSprite(name) {
