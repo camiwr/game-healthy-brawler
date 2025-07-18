@@ -1,4 +1,5 @@
 function iniciarFase1() {
+    faseAtual = iniciarFase1;
     background = new Background("public/assets/background/bgcity.png");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#fff";
@@ -13,9 +14,6 @@ function iniciarFase1() {
         items = [];
         enemies = [];
         fruitBasketSpawned = false;
-
-        document.getElementById("pauseButton").style.display = "block";
-
 
         // 🍎 Itens da fase 1
         items.push(new Item({ position: { x: 1000, y: 400 }, type: "hamburguer" }));
@@ -97,7 +95,7 @@ function iniciarFase1() {
         );
 
     });
-    document.getElementById("pauseButton").style.display = "none";
+document.getElementById("pauseButton").style.display = "block";
 
     animate();
 }

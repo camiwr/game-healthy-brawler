@@ -4,13 +4,15 @@ const faseMenu = document.getElementById("faseMenu");
 const startButton = document.getElementById("startButton");
 const retryButton = document.getElementById("retryButton");
 const backToMenuButton = document.getElementById("backToMenuButton");
+
+let jogoPausado = false;
+let faseAtual = null;
+
 const pauseButton = document.getElementById("pauseButton");
 const pauseMenu = document.getElementById("pauseMenu");
 const resumeButton = document.getElementById("resumeButton");
 const restartButton = document.getElementById("restartButton");
 const backToFasesButton = document.getElementById("backToFasesButton");
-
-let jogoPausado = false;
 
 pauseButton.onclick = () => {
   jogoPausado = true;
@@ -20,16 +22,21 @@ pauseButton.onclick = () => {
 resumeButton.onclick = () => {
   jogoPausado = false;
   pauseMenu.style.display = "none";
-  animate(); // retoma o loop
+  animate();
 };
 
 restartButton.onclick = () => {
-  location.reload(); // ou reiniciarFase();
+  jogoPausado = false;
+  pauseMenu.style.display = "none";
+  if (faseAtual) faseAtual(); // 👈 chama a função da fase atual novamente
 };
 
 backToFasesButton.onclick = () => {
-  window.location.href = "index.html"; // ou mostrar menu de fases
+  jogoPausado = false;
+  pauseMenu.style.display = "none";
+  location.reload(); // ou exibe o menu de fases diretamente se tiver DOM
 };
+
 
 const ctx = canvas.getContext("2d");
 const canvasWidth = 1024;
@@ -112,6 +119,7 @@ function animate() {
 
     // Executa atualizações lógicas com base no frameTime
     while (lag >= frameTime) {
+         if (jogoPausado) return;
         // Limpa a tela
         ctx.fillStyle = "black";
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
@@ -171,10 +179,7 @@ function animate() {
 
     }
 
-    // Chama o próximo frame
-    window.requestAnimationFrame(animate);
-
-    // Desenha barra de vida do jogador
+    requestAnimationFrame(animate);
     desenharBarraDeVida();
 }
 
