@@ -1,6 +1,7 @@
 const bossProjectileSprites = [
     "public/assets/items/hamburguer.png",
-    "public/assets/items/donot.png",];
+    "public/assets/items/donot.png",
+];
 
 
 class Boss {

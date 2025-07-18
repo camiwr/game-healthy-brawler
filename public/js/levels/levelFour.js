@@ -6,9 +6,19 @@ function iniciarFase4() {
         enemies = [];
         projectiles = [];
         fruitBasketSpawned = false;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // 🍎 Itens da fase 4
+        items.push(new Item({ position: { x: 3000, y: 400 }, type: "hamburguer" }));
+        items.push(new Item({ position: { x: 2300, y: 500 }, type: "apple" }));
+        items.push(new Item({ position: { x: 2500, y: 460 }, type: "apple" }));
+        items.push(new Item({ position: { x: 2600, y: 380 }, type: "hamburguer" }));
+        items.push(new Item({ position: { x: 1700, y: 450 }, type: "hamburguer" }));
+        items.push(new Item({ position: { x: 3200, y: 340 }, type: "hamburguer" }));
+        
 
         const boss = new Boss({
-            position: { x: 3200, y: 420 },
+            position: { x: 2200, y: 420 },
             scale: 5,
             sprites: {
                 running: {
@@ -24,7 +34,7 @@ function iniciarFase4() {
                 death: {
                     src: "public/assets/enemies/boss-dead.png",
                     totalSpriteFrames: 5,
-                    framesPerSpriteFrame: 8
+                    framesPerSpriteFrame: 6
                 }
             }
         });
