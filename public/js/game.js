@@ -4,6 +4,33 @@ const faseMenu = document.getElementById("faseMenu");
 const startButton = document.getElementById("startButton");
 const retryButton = document.getElementById("retryButton");
 const backToMenuButton = document.getElementById("backToMenuButton");
+const pauseButton = document.getElementById("pauseButton");
+const pauseMenu = document.getElementById("pauseMenu");
+const resumeButton = document.getElementById("resumeButton");
+const restartButton = document.getElementById("restartButton");
+const backToFasesButton = document.getElementById("backToFasesButton");
+
+let jogoPausado = false;
+
+pauseButton.onclick = () => {
+  jogoPausado = true;
+  pauseMenu.style.display = "block";
+};
+
+resumeButton.onclick = () => {
+  jogoPausado = false;
+  pauseMenu.style.display = "none";
+  animate(); // retoma o loop
+};
+
+restartButton.onclick = () => {
+  location.reload(); // ou reiniciarFase();
+};
+
+backToFasesButton.onclick = () => {
+  window.location.href = "index.html"; // ou mostrar menu de fases
+};
+
 const ctx = canvas.getContext("2d");
 const canvasWidth = 1024;
 const canvasHeight = 576;
@@ -27,6 +54,7 @@ let vidaAtual = 5;
 let jogoTravado = false;
 let fruitBasketSpawned = false;
 let prevTime = performance.now();
+
 
 startButton.addEventListener("click", () => {
     menu.style.display = "none";
@@ -66,6 +94,8 @@ function checkItemCollision(item) {
 }
 
 function animate() {
+    if (jogoPausado) return;
+
     const currentTime = performance.now();
     const elapsed = currentTime - prevTime;
     prevTime = currentTime;
@@ -179,10 +209,6 @@ function showVictoryScreen() {
     jogoTravado = true;
 }
 
-function iniciarFase(fase) {
-    if (fase === "1") iniciarFase1();
-    else if (fase === "2") iniciarFase2();
-}
 
 function desenharBarraDeVida() {
     // Imagens dos corações

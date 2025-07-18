@@ -14,6 +14,9 @@ function iniciarFase1() {
         enemies = [];
         fruitBasketSpawned = false;
 
+        document.getElementById("pauseButton").style.display = "block";
+
+
         // 🍎 Itens da fase 1
         items.push(new Item({ position: { x: 1000, y: 400 }, type: "hamburguer" }));
         items.push(new Item({ position: { x: 1300, y: 500 }, type: "apple" }));
@@ -94,6 +97,7 @@ function iniciarFase1() {
         );
 
     });
+    document.getElementById("pauseButton").style.display = "none";
 
     animate();
 }
