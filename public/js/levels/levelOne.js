@@ -17,9 +17,10 @@ function iniciarFase1() {
         // 🍎 Itens da fase 1
         items.push(new Item({ position: { x: 1000, y: 400 }, type: "hamburguer" }));
         items.push(new Item({ position: { x: 1300, y: 500 }, type: "apple" }));
-        items.push(new Item({ position: { x: 2500, y: 460 }, type: "apple" }));
         items.push(new Item({ position: { x: 600, y: 380 }, type: "hamburguer" }));
-        items.push(new Item({ position: { x: 1700, y: 450 }, type: "hamburguer" }));
+        items.push(new Item({ position: { x: 1700, y: 400 }, type: "hamburguer" }));
+        items.push(new Item({ position: { x: 2500, y: 460 }, type: "banana" }));
+        items.push(new Item({ position: { x: 1500, y: 460 }, type: "banana" }));
         items.push(new Item({ position: { x: 3200, y: 340 }, type: "hamburguer" }));
         
         // 👾 Inimigos da fase 1

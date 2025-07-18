@@ -16,11 +16,11 @@ function iniciarFase2() {
         fruitBasketSpawned = false;
 
         // 🥦 Itens da fase 2
-        items.push(new Item({ position: { x: 800, y: 460 }, type: "hamburguer" }));
-        items.push(new Item({ position: { x: 2400, y: 400 }, type: "apple" }));
-        items.push(new Item({ position: { x: 1400, y: 460 }, type: "hamburguer" }));
-        items.push(new Item({ position: { x: 1900, y: 440 }, type: "apple" }));
-        items.push(new Item({ position: { x: 3000, y: 440 }, type: "apple" }));
+        items.push(new Item({ position: { x: 800, y: 460 }, type: "donut" }));
+        items.push(new Item({ position: { x: 2400, y: 400 }, type: "carrot" }));
+        items.push(new Item({ position: { x: 1400, y: 460 }, type: "donut" }));
+        items.push(new Item({ position: { x: 1900, y: 440 }, type: "carrot" }));
+        items.push(new Item({ position: { x: 3000, y: 440 }, type: "carrot" }));
 
 
 

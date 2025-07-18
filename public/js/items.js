@@ -9,9 +9,38 @@ class Item {
         this.scale = 1.0;
 
         this.image = new Image();
-        this.image.src = type === "apple"
-            ? "public/assets/items/apple.png"
-            : "public/assets/items/hamburguer.png";
+        switch (type) {
+            case "apple":
+                this.image.src = "public/assets/items/melancia.png";
+                break;
+            case "hamburguer":
+                this.image.src = "public/assets/items/hmaburguer.png";
+                break;
+            case "banana":
+                this.image.src = "public/assets/items/banana.png";
+                break;
+            case "carrot":
+                this.image.src = "public/assets/items/carrot.png";
+                break;
+
+            case "alface":
+                this.image.src = "public/assets/items/alface.png";
+                this.width = 42;
+                this.height = 52;
+                break;
+            case "cola":
+                this.image.src = "public/assets/items/cocacola.png";
+                this.width = 32;
+                this.height = 52;
+                break;
+            case "donut":
+                this.image.src = "public/assets/items/donot.png";   
+                this.width = 32;
+                this.height = 32;   
+                break;
+            default:
+                this.image.src = "public/assets/items/apple.png";
+        }
     }
 
     collect() {
@@ -21,6 +50,19 @@ class Item {
         if (this.type === "apple") {
             if (vidaAtual < vidaMaxima) vidaAtual++;
         } else if (this.type === "hamburguer") {
+            simularDano();
+        } else if (this.type === "banana") {
+            if (vidaAtual < vidaMaxima) vidaAtual++;
+            if (vidaAtual > vidaMaxima) vidaAtual = vidaMaxima;
+        } else if (this.type === "carrot") {
+            if (vidaAtual < vidaMaxima) vidaAtual++;
+            if (vidaAtual > vidaMaxima) vidaAtual = vidaMaxima;
+        } else if (this.type === "cola") {
+            simularDano();
+        } else if (this.type === "alface") {
+            if (vidaAtual < vidaMaxima) vidaAtual++;
+            if (vidaAtual > vidaMaxima) vidaAtual = vidaMaxima;
+        } else if (this.type === "donut") {
             simularDano();
         }
     }
