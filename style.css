@@ -25,24 +25,28 @@ body {
   width: 60px;
   animation-delay: 0s;
 }
+
 .fruit-floating.fruit2 {
   left: 30vw;
   top: 90vh;
   width: 48px;
   animation-delay: 2s;
 }
+
 .fruit-floating.fruit3 {
   left: 60vw;
   top: 85vh;
   width: 54px;
   animation-delay: 1s;
 }
+
 .fruit-floating.fruit4 {
   left: 80vw;
   top: 95vh;
   width: 44px;
   animation-delay: 3s;
 }
+
 .fruit-floating.fruit5 {
   left: 50vw;
   top: 100vh;
@@ -55,9 +59,11 @@ body {
     transform: translateY(0) scale(1) rotate(0deg);
     opacity: 0.85;
   }
+
   80% {
     opacity: 0.85;
   }
+
   100% {
     transform: translateY(-110vh) scale(1.1) rotate(20deg);
     opacity: 0;
@@ -80,7 +86,7 @@ body {
   box-shadow: 0 6px 18px rgba(50, 150, 80, 0.15);
   cursor: pointer;
   margin-top: 80%;
-  transition: 
+  transition:
     background 0.25s,
     transform 0.18s,
     box-shadow 0.18s;
@@ -109,50 +115,109 @@ body {
 /* fases do jogo */
 #faseMenu {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   text-align: center;
-  background: rgb(255, 255, 255);
-  border-radius: 14px;
-  padding: 40px;
-  width: 90%;
-  max-width: 800px;
-  height: 70%;
-  max-height: 600px;
-  margin: auto;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 22px;
+  padding: 48px 36px 40px 36px;
+  width: 92%;
+  max-width: 820px;
+  height: auto;
+  margin: 40px auto;
+  box-shadow: 0 12px 36px rgba(80, 120, 180, 0.18), 0 2px 8px rgba(0, 0, 0, 0.07);
+  backdrop-filter: blur(2px);
+  border: 1.5px solid #e3eaf7;
+  transition: box-shadow 0.25s;
 }
 
 #faseMenu h2 {
-  font-size: 42px;
-  margin-bottom: 40px;
-  color: #333;
+  font-size: 46px;
+  margin-bottom: 36px;
+  color: #2d3a4b;
   font-family: 'Fredoka', sans-serif;
-  text-shadow: 1px 1px 1px #ddd;
+  text-shadow: 0 2px 8px #e3eaf7, 1px 1px 0 #fff;
+  letter-spacing: 1.5px;
+  font-weight: 700;
 }
 
 .fase-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
+  justify-items: center;
+  align-items: center;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 28px 24px;
+  margin-bottom: 10px;
 }
 
 .faseBtn {
-  padding: 15px 24px;
-  font-size: 18px;
-  background: linear-gradient(145deg, #a7c4e7, #89add4);
+  padding: 22px 0;
+  font-size: 21px;
+  background: linear-gradient(135deg, #b8e1fc 0%, #a7c4e7 60%, #7fa7d6 100%);
   border: none;
-  border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  color: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(120, 170, 220, 0.13), 0 1.5px 4px rgba(0, 0, 0, 0.07);
+  color: #2d3a4b;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.18s cubic-bezier(.4, 1.4, .6, 1),
+    box-shadow 0.18s,
+    background 0.22s,
+    color 0.18s;
   min-width: 220px;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
 }
 
-.faseBtn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
-  background: linear-gradient(145deg, #88b4df, #6fa2cb);
+.faseBtn::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.04) 100%);
+  pointer-events: none;
+  border-radius: 18px;
+}
+
+.faseBtn:hover,
+.faseBtn:focus {
+  background: linear-gradient(135deg, #7fa7d6 0%, #a7c4e7 100%);
+  color: #fff;
+  transform: translateY(-6px) scale(1.035);
+  box-shadow: 0 14px 32px rgba(120, 170, 220, 0.22), 0 2px 8px rgba(0, 0, 0, 0.10);
+  outline: none;
+}
+
+.faseBtn:active {
+  transform: translateY(-2px) scale(0.98);
+  box-shadow: 0 4px 10px rgba(120, 170, 220, 0.13);
+}
+
+@media (max-width: 600px) {
+  #faseMenu {
+    padding: 28px 8px 24px 8px;
+    max-width: 98vw;
+  }
+
+  #faseMenu h2 {
+    font-size: 28px;
+    margin-bottom: 18px;
+  }
+
+  .fase-grid {
+    gap: 14px 8px;
+  }
+
+  .faseBtn {
+    font-size: 16px;
+    min-width: 120px;
+    padding: 14px 0;
+  }
 }
 
 
@@ -294,7 +359,7 @@ body {
   font-weight: 600;
   box-shadow: 0 4px 16px rgba(50, 150, 80, 0.15);
   cursor: pointer;
-  transition: 
+  transition:
     background 0.25s,
     transform 0.18s,
     box-shadow 0.18s,

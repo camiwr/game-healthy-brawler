@@ -387,7 +387,7 @@ class Background {
 const player = new Fighter({
     position: { x: 100, y: 300 },
     velocity: { x: 0, y: 10 },
-    scale: 6,
+    scale: 7,
     sprites: {
         idle_down: {
             src: "public/assets/player/FrontIdle.png",
