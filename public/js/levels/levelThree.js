@@ -25,7 +25,30 @@ function iniciarFase3() {
             new Enemy({
                 position: { x: 2400, y: 420 },
                 velocity: { x: 0, y: 0 },
-                scale: 2.5,
+                scale: 3,
+                sprites: {
+                    idle_down: {
+                        src: "public/assets/enemies/slime_idle.png",
+                        totalSpriteFrames: 4,
+                        framesPerSpriteFrame: 10
+                    },
+                    running: {
+                        src: "public/assets/enemies/slime_run.png",
+                        totalSpriteFrames: 6,
+                        framesPerSpriteFrame: 7
+                    },
+                    death: {
+                        src: "public/assets/enemies/slime_die.png",
+                        totalSpriteFrames: 5,
+                        framesPerSpriteFrame: 10
+                    }
+                }
+            }),
+
+            new Enemy({
+                position: { x: 2900, y: 420 },
+                velocity: { x: 1, y: 0 },
+                scale: 3,
                 sprites: {
                     idle_down: {
                         src: "public/assets/enemies/slime_idle.png",
@@ -45,10 +68,10 @@ function iniciarFase3() {
                 }
             }),
             new Enemy({
-                position: { x: 3200, y: 500 },
+                position: { x: 4200, y: 500 },
                 dropFruitBasket: true,
                 velocity: { x: 0, y: 0 },
-                scale: 2.5,
+                scale: 3.0,
                 sprites: {
                     idle_down: {
                         src: "public/assets/enemies/slime_idle.png",
