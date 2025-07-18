@@ -292,6 +292,15 @@ class Enemy extends Fighter {
     }
 
     update() {
+        // Não move nem anima se o jogo estiver pausado
+        if (typeof jogoPausado !== "undefined" && jogoPausado) {
+            this.velocity.x = 0;
+            this.velocity.y = 0;
+            // Apenas desenha o sprite atual, sem animar ou mover
+            super.draw();
+            return;
+        }
+
         if (this.isDead) {
             if (!this.deathTimerStarted) {
                 this.setSprite("death");
@@ -305,7 +314,7 @@ class Enemy extends Fighter {
 
             this.velocity.x = 0;
             this.velocity.y = 0;
-        } else{
+        } else {
             this.moveTowardPlayer();
             this.tryAttackPlayer();
         }
@@ -313,6 +322,13 @@ class Enemy extends Fighter {
     }
 
     moveTowardPlayer() {
+        // Não move se o jogo estiver pausado
+        if (typeof jogoPausado !== "undefined" && jogoPausado) {
+            this.velocity.x = 0;
+            this.velocity.y = 0;
+            return;
+        }
+
         const dx = player.position.x - this.position.x;
         const dy = player.position.y - this.position.y;
         const dist = Math.hypot(dx, dy);
@@ -346,6 +362,11 @@ class Enemy extends Fighter {
     }
 
     tryAttackPlayer() {
+        // Não ataca se o jogo estiver pausado
+        if (typeof jogoPausado !== "undefined" && jogoPausado) {
+            return;
+        }
+
         const dx = player.position.x - this.position.x;
         const dy = player.position.y - this.position.y;
         const dist = Math.hypot(dx, dy);

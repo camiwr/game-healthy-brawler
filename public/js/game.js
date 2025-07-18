@@ -4,40 +4,6 @@ const faseMenu = document.getElementById("faseMenu");
 const startButton = document.getElementById("startButton");
 const retryButton = document.getElementById("retryButton");
 const backToMenuButton = document.getElementById("backToMenuButton");
-
-let jogoPausado = false;
-let faseAtual = null;
-
-const pauseButton = document.getElementById("pauseButton");
-const pauseMenu = document.getElementById("pauseMenu");
-const resumeButton = document.getElementById("resumeButton");
-const restartButton = document.getElementById("restartButton");
-const backToFasesButton = document.getElementById("backToFasesButton");
-
-pauseButton.onclick = () => {
-  jogoPausado = true;
-  pauseMenu.style.display = "block";
-};
-
-resumeButton.onclick = () => {
-  jogoPausado = false;
-  pauseMenu.style.display = "none";
-  animate();
-};
-
-restartButton.onclick = () => {
-  jogoPausado = false;
-  pauseMenu.style.display = "none";
-  if (faseAtual) faseAtual(); // 👈 chama a função da fase atual novamente
-};
-
-backToFasesButton.onclick = () => {
-  jogoPausado = false;
-  pauseMenu.style.display = "none";
-  location.reload(); // ou exibe o menu de fases diretamente se tiver DOM
-};
-
-
 const ctx = canvas.getContext("2d");
 const canvasWidth = 1024;
 const canvasHeight = 576;
@@ -61,7 +27,6 @@ let vidaAtual = 5;
 let jogoTravado = false;
 let fruitBasketSpawned = false;
 let prevTime = performance.now();
-
 
 startButton.addEventListener("click", () => {
     menu.style.display = "none";
@@ -101,8 +66,6 @@ function checkItemCollision(item) {
 }
 
 function animate() {
-    if (jogoPausado) return;
-
     const currentTime = performance.now();
     const elapsed = currentTime - prevTime;
     prevTime = currentTime;
@@ -119,7 +82,6 @@ function animate() {
 
     // Executa atualizações lógicas com base no frameTime
     while (lag >= frameTime) {
-         if (jogoPausado) return;
         // Limpa a tela
         ctx.fillStyle = "black";
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
@@ -179,7 +141,10 @@ function animate() {
 
     }
 
-    requestAnimationFrame(animate);
+    // Chama o próximo frame
+    window.requestAnimationFrame(animate);
+
+    // Desenha barra de vida do jogador
     desenharBarraDeVida();
 }
 
@@ -214,6 +179,10 @@ function showVictoryScreen() {
     jogoTravado = true;
 }
 
+function iniciarFase(fase) {
+    if (fase === "1") iniciarFase1();
+    else if (fase === "2") iniciarFase2();
+}
 
 function desenharBarraDeVida() {
     // Imagens dos corações

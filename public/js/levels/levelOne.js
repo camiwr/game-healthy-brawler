@@ -1,5 +1,4 @@
 function iniciarFase1() {
-    faseAtual = iniciarFase1;
     background = new Background("public/assets/background/bgcity.png");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#fff";
@@ -95,7 +94,6 @@ function iniciarFase1() {
         );
 
     });
-document.getElementById("pauseButton").style.display = "block";
 
     animate();
 }
