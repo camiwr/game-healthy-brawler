@@ -6,30 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Healthy Brawler</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" type="image/png" href="assets/effects/logo-bw.png" />
+    <link rel="icon" type="image/png" href="public/assets/effects/logo-bw.png" />
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <!-- Frutas flutuantes no background -->
     <div id="floating-fruits">
-        <img src="assets/items/maca.png" class="floating-fruit" style="top: 20%; left: 15%;" />
-        <img src="assets/items/banana.png" class="floating-fruit" style="top: 30%; left: 70%;" />
-        <img src="assets/items/strawberry.png" class="floating-fruit" style="top: 60%; left: 25%;" />
-        <img src="assets/items/grape.png" class="floating-fruit" style="top: 50%; left: 80%;" />
-        <img src="assets/items/tomato.png" class="floating-fruit" style="top: 75%; left: 55%;" />
-        <img src="assets/items/milho.png" class="floating-fruit" style="top: 40%; left: 40%;" />
-        <img src="assets/items/abacaxi.png" class="floating-fruit" style="top: 10%; left: 85%;" />
+        <img src="public/assets/items/maca.png" class="floating-fruit" style="top: 20%; left: 15%;" />
+        <img src="public/assets/items/banana.png" class="floating-fruit" style="top: 30%; left: 70%;" />
+        <img src="public/assets/items/strawberry.png" class="floating-fruit" style="top: 60%; left: 25%;" />
+        <img src="public/assets/items/grape.png" class="floating-fruit" style="top: 50%; left: 80%;" />
+        <img src="public/assets/items/tomato.png" class="floating-fruit" style="top: 75%; left: 55%;" />
+        <img src="public/assets/items/milho.png" class="floating-fruit" style="top: 40%; left: 40%;" />
+        <img src="public/assets/items/abacaxi.png" class="floating-fruit" style="top: 10%; left: 85%;" />
 
         <!-- Duplicadas em posições diferentes -->
-        <img src="assets/items/maca.png" class="floating-fruit" style="top: 65%; left: 10%;" />
-        <img src="assets/items/maca.png" class="floating-fruit" style="top: 85%; left: 80%;" />
-        <img src="assets/items/strawberry.png" class="floating-fruit" style="top: 15%; left: 60%;" />
-        <img src="assets/items/banana.png" class="floating-fruit" style="top: 80%; left: 35%;" />
-        <img src="assets/items/tomato.png" class="floating-fruit" style="top: 25%; left: 90%;" />
-        <img src="assets/items/grape.png" class="floating-fruit" style="top: 55%; left: 65%;" />
-        <img src="assets/items/milho.png" class="floating-fruit" style="top: 35%; left: 20%;" />
-        <img src="assets/items/abacaxi.png" class="floating-fruit" style="top: 5%; left: 45%;" />
+        <img src="public/assets/items/maca.png" class="floating-fruit" style="top: 65%; left: 10%;" />
+        <img src="public/assets/items/maca.png" class="floating-fruit" style="top: 85%; left: 80%;" />
+        <img src="public/assets/items/strawberry.png" class="floating-fruit" style="top: 15%; left: 60%;" />
+        <img src="public/assets/items/banana.png" class="floating-fruit" style="top: 80%; left: 35%;" />
+        <img src="public/assets/items/tomato.png" class="floating-fruit" style="top: 25%; left: 90%;" />
+        <img src="public/assets/items/grape.png" class="floating-fruit" style="top: 55%; left: 65%;" />
+        <img src="public/assets/items/milho.png" class="floating-fruit" style="top: 35%; left: 20%;" />
+        <img src="public/assets/items/abacaxi.png" class="floating-fruit" style="top: 5%; left: 45%;" />
 
     </div>
     <style>
@@ -77,7 +77,7 @@
 
     <div
         style="display: flex; flex-direction: column; align-items: center; justify-content: center; position: absolute; top: 35%; left: 51%; transform: translate(-50%, -50%); width: 100%;">
-        <img src="assets/effects/logo-bw.png" alt="Healthy Brawler"
+        <img src="public/assets/effects/logo-bw.png" alt="Healthy Brawler"
             style="max-width: 500px; width: 90vw; height: auto; display: block;" />
     </div>
     <div id="menu">
@@ -117,7 +117,7 @@
 
     <div id="faseIntro" style="display: none;">
         <div class="intro-box">
-            <img id="introImg" src="assets/cientista/cientista.png" alt="Cientista" class="intro-avatar" />
+            <img id="introImg" src="public/assets/cientista/cientista.png" alt="Cientista" class="intro-avatar" />
             <p id="introTexto"></p>
             <button id="introBtn">Próximo ></button>
         </div>
@@ -137,17 +137,17 @@
     <canvas id="gameCanvas" width="800" height="600" style="display: none; z-index: 9;"></canvas>
 
 
-    <script src="./js/config.js"></script>
-    <script src="./js/sprites.js"></script>
-    <script src="./js/boss.js"></script>
-    <script src="./js/controls.js"></script>
-    <script src="./js/items.js"></script>
-    <script src="./js/levels/levelOne.js"></script>
-    <script src="./js/levels/levelTwo.js"></script>
-    <script src="./js/levels/levelThree.js"></script>
-    <script src="./js/levels/levelFour.js"></script>
-    <script src="./js/levelLoader.js"></script>
-    <script src="./js/game.js"></script>
+    <script src="public/js/config.js"></script>
+    <script src="public/js/sprites.js"></script>
+    <script src="public/js/boss.js"></script>
+    <script src="public/js/controls.js"></script>
+    <script src="public/js/items.js"></script>
+    <script src="public/js/levels/levelOne.js"></script>
+    <script src="public/js/levels/levelTwo.js"></script>
+    <script src="public/js/levels/levelThree.js"></script>
+    <script src="public/js/levels/levelFour.js"></script>
+    <script src="public/js/levelLoader.js"></script>
+    <script src="public/js/game.js"></script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 const bossProjectileSprites = [
-    "../assets/items/hamburguer.png",
-    "../assets/items/donot.png",];
+    "public/assets/items/hamburguer.png",
+    "public/assets/items/donot.png",];
 
 
 class Boss {
@@ -13,8 +13,8 @@ class Boss {
 
         this.setSprite("running");
 
-        this.health = 8;
-        this.maxHealth = 8;
+        this.health = 15;
+        this.maxHealth = 15;
         this.speed = 1.2;
         this.attackInterval = 3000;
         this.lastAttackTime = 0;
@@ -270,7 +270,7 @@ class CrownDrop  {
     constructor(position) {
         this.position = position;
         this.image = new Image();
-        this.image.src = "../assets/objects/crown.png"; 
+        this.image.src = "public/assets/objects/crown.png"; 
         this.scale = 2;
         this.width = 16 * this.scale;
         this.height = 16 * this.scale;

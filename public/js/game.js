@@ -188,9 +188,9 @@ function iniciarFase(fase) {
 function desenharBarraDeVida() {
     // Imagens dos corações
     const heartFull = new Image();
-    heartFull.src = "assets/ui/heart.png";
+    heartFull.src = "public/assets/ui/heart.png";
     const heartEmpty = new Image();
-    heartEmpty.src = "assets/ui/heartBlack.png";
+    heartEmpty.src = "public/assets/ui/heartBlack.png";
 
     const x = 24;
     const y = 24;
@@ -289,7 +289,7 @@ function mostrarTutorialIntro(onFecharTutorial) {
 
     let index = 0;
     tutorialTexto.innerHTML = instrucoes[index];
-    tutorialImg.src = "assets/items/fruitBasket.png";
+    tutorialImg.src = "public/assets/items/fruitBasket.png";
     tutorialBtn.textContent = "Próximo";
     tutorialContainer.style.display = "flex";
 
@@ -345,7 +345,7 @@ function mostrarIntroDaFase(fase, onFechar) {
     let index = 0;
 
     introTexto.textContent = falas[index];
-    introImg.src = "assets/cientista/cientista.png";
+    introImg.src = "public/assets/cientista/cientista.png";
     introBtn.textContent = "Próximo";
     introContainer.style.display = "flex";
 
@@ -354,7 +354,7 @@ function mostrarIntroDaFase(fase, onFechar) {
         if (index < falas.length) {
             introTexto.textContent = falas[index];
             if (index === 1) {
-                introImg.src = "assets/cientista/cientista-doce.png";
+                introImg.src = "public/assets/cientista/cientista-doce.png";
             }
             if (index === falas.length - 1) {
                 introBtn.textContent = "Entendi!";
@@ -362,7 +362,7 @@ function mostrarIntroDaFase(fase, onFechar) {
         } else {
             introContainer.style.display = "none";
             introBtn.textContent = "Próximo";
-            introImg.src = "assets/cientista/cientista.png";
+            introImg.src = "public/assets/cientista/cientista.png";
             mostrarTutorialIntro(onFechar);
         }
     };

@@ -1,4 +1,4 @@
-const defaultObjectSpritePath = "../assets/objects/square.svg"
+const defaultObjectSpritePath = "public/assets/objects/square.svg"
 
 class Sprite {
     constructor({ position, velocity, source, scale, offset, sprites }) {
@@ -390,62 +390,62 @@ const player = new Fighter({
     scale: 6,
     sprites: {
         idle_down: {
-            src: "../assets/player/FrontIdle.png",
+            src: "public/assets/player/FrontIdle.png",
             totalSpriteFrames: 4,
             framesPerSpriteFrame: 10
         },
         idle_up: {
-            src: "../assets/player/BackIdle.png",
+            src: "public/assets/player/BackIdle.png",
             totalSpriteFrames: 4,
             framesPerSpriteFrame: 10
         },
         idle_left: {
-            src: "../assets/player/SideIdle.png",
+            src: "public/assets/player/SideIdle.png",
             totalSpriteFrames: 4,
             framesPerSpriteFrame: 10
         },
         idle_right: {
-            src: "../assets/player/SideIdle.png",
+            src: "public/assets/player/SideIdle.png",
             totalSpriteFrames: 4,
             framesPerSpriteFrame: 10
         },
         walk_down: {
-            src: "../assets/player/FrontRun.png",
+            src: "public/assets/player/FrontRun.png",
             totalSpriteFrames: 4,
             framesPerSpriteFrame: 10
         },
         walk_up: {
-            src: "../assets/player/BackRun.png",
+            src: "public/assets/player/BackRun.png",
             totalSpriteFrames: 4,
             framesPerSpriteFrame: 10
         },
         walk_left: {
-            src: "../assets/player/SideRun.png",
+            src: "public/assets/player/SideRun.png",
             totalSpriteFrames: 4,
             framesPerSpriteFrame: 10
         },
         walk_right: {
-            src: "../assets/player/SideRun.png",
+            src: "public/assets/player/SideRun.png",
             totalSpriteFrames: 4,
             framesPerSpriteFrame: 10
         },
         attacking_down: {
-            src: "../assets/player/FrontAttack.png",
+            src: "public/assets/player/FrontAttack.png",
             totalSpriteFrames: 4,
             framesPerSpriteFrame: 8
         },
         attacking_up: {
-            src: "../assets/player/BackAttack.png",
+            src: "public/assets/player/BackAttack.png",
             totalSpriteFrames: 4,
             framesPerSpriteFrame: 8
         },
         attacking_left: {
-            src: "../assets/player/SideAttack.png",
+            src: "public/assets/player/SideAttack.png",
             totalSpriteFrames: 4,
             framesPerSpriteFrame: 8
         },
         attacking_right: {
-            src: "../assets/player/SideAttack.png",
+            src: "public/assets/player/SideAttack.png",
             totalSpriteFrames: 4,
             framesPerSpriteFrame: 8
         }

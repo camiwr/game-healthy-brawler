@@ -10,8 +10,8 @@ class Item {
 
         this.image = new Image();
         this.image.src = type === "apple"
-            ? "../assets/items/apple.png"
-            : "../assets/items/hamburguer.png";
+            ? "public/assets/items/apple.png"
+            : "public/assets/items/hamburguer.png";
     }
 
     collect() {
@@ -47,7 +47,7 @@ class FruitBasket extends Sprite {
     constructor({ position }) {
         super({
             position,
-            source: "../assets/items/fruitBasket.png",
+            source: "public/assets/items/fruitBasket.png",
             scale: 0.5
         });
         this.width = 16;
@@ -74,7 +74,7 @@ class Projectile extends Sprite {
             scale: 1.5,
             sprites: {
                 idle: {
-                    src: "../assets/effects/ball.png",
+                    src: "public/assets/effects/ball.png",
                     totalSpriteFrames: 1,
                     framesPerSpriteFrame: 1
                 }
