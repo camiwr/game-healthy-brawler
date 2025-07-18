@@ -51,17 +51,17 @@ function iniciarFase3() {
                 scale: 2.5,
                 sprites: {
                     idle_down: {
-                        src: "../assets/enemies/slime_idle.png",
+                        src: "public/assets/enemies/slime_idle.png",
                         totalSpriteFrames: 4,
                         framesPerSpriteFrame: 10
                     },
                     running: {
-                        src: "../assets/enemies/slime_run.png",
+                        src: "public/assets/enemies/slime_run.png",
                         totalSpriteFrames: 6,
                         framesPerSpriteFrame: 7
                     },
                     death: {
-                        src: "../assets/enemies/slime_die.png",
+                        src: "public/assets/enemies/slime_die.png",
                         totalSpriteFrames: 5,
                         framesPerSpriteFrame: 10
                     }

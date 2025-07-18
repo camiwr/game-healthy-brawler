@@ -283,7 +283,7 @@ function mostrarTutorialIntro(onFecharTutorial) {
     const instrucoes = [
         "🕹️ Use as setas ou W, A, S, D para se mover<br>⚔️ Use Z ou Espaço para atacar",
         "💖 Você começa com 5 vidas!<br>🍎 Colete frutas para ganhar vidas extras!<br>🍔 Evite comidas não saudáveis para não perder vidas!",
-        "👾 Mate TODOS os inimigos para avançar de fase e vencer!"
+        "👾 Combata TODOS os inimigos para avançar de fase e vencer!"
     ];
 
     let index = 0;
@@ -347,7 +347,6 @@ function mostrarIntroDaFase(fase, onFechar) {
     introImg.src = "public/assets/cientista/cientista.png";
     introBtn.textContent = "Próximo";
     introContainer.style.display = "flex";
-
     introBtn.onclick = () => {
         index++;
         if (index < falas.length) {
@@ -362,7 +361,12 @@ function mostrarIntroDaFase(fase, onFechar) {
             introContainer.style.display = "none";
             introBtn.textContent = "Próximo";
             introImg.src = "public/assets/cientista/cientista.png";
-            mostrarTutorialIntro(onFechar);
+            // Só mostra o tutorial na fase 1
+            if (fase === "1") {
+                mostrarTutorialIntro(onFechar);
+            } else if (typeof onFechar === "function") {
+                onFechar();
+            }
         }
     };
 }
