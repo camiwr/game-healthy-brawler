@@ -78,7 +78,6 @@ function animate() {
 
     lag += elapsed;
 
-    // Processa controles do jogador
     handleControls();
 
     // Executa atualizações lógicas com base no frameTime

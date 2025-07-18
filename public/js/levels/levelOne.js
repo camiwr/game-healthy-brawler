@@ -1,5 +1,5 @@
 function iniciarFase1() {
-    background = new Background("../../assets/background/bgcity.png");
+    background = new Background("public/assets/background/bgcity.png");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -30,17 +30,17 @@ function iniciarFase1() {
                 scale: 2.5,
                 sprites: {
                     idle_down: {
-                        src: "../assets/enemies/slime_idle.png",
+                        src: "public/assets/enemies/slime_idle.png",
                         totalSpriteFrames: 4,
                         framesPerSpriteFrame: 10
                     },
                     running: {
-                        src: "../assets/enemies/slime_run.png",
+                        src: "public/assets/enemies/slime_run.png",
                         totalSpriteFrames: 6,
                         framesPerSpriteFrame: 7
                     },
                     death: {
-                        src: "../assets/enemies/slime_die.png",
+                        src: "public/assets/enemies/slime_die.png",
                         totalSpriteFrames: 5,
                         framesPerSpriteFrame: 10
                     }
@@ -52,17 +52,17 @@ function iniciarFase1() {
                 scale: 2.5,
                 sprites: {
                     idle_down: {
-                        src: "../assets/enemies/slime_idle.png",
+                        src: "public/assets/enemies/slime_idle.png",
                         totalSpriteFrames: 4,
                         framesPerSpriteFrame: 10
                     },
                     running: {
-                        src: "../assets/enemies/slime_run.png",
+                        src: "public/assets/enemies/slime_run.png",
                         totalSpriteFrames: 6,
                         framesPerSpriteFrame: 7
                     },
                     death: {
-                        src: "../assets/enemies/slime_die.png",
+                        src: "public/assets/enemies/slime_die.png",
                         totalSpriteFrames: 5,
                         framesPerSpriteFrame: 10
                     }
@@ -75,17 +75,17 @@ function iniciarFase1() {
                 scale: 2.5,
                 sprites: {
                     idle_down: {
-                        src: "../assets/enemies/slime_idle.png",
+                        src: "public/assets/enemies/slime_idle.png",
                         totalSpriteFrames: 4,
                         framesPerSpriteFrame: 10
                     },
                     running: {
-                        src: "../assets/enemies/slime_run.png",
+                        src: "public/assets/enemies/slime_run.png",
                         totalSpriteFrames: 6,
                         framesPerSpriteFrame: 7
                     },
                     death: {
-                        src: "../assets/enemies/slime_die.png",
+                        src: "public/assets/enemies/slime_die.png",
                         totalSpriteFrames: 5,
                         framesPerSpriteFrame: 10
                     }
