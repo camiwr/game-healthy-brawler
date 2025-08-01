@@ -12,7 +12,7 @@ Ensinar, de forma lúdica e divertida, conceitos sobre alimentação saudável e
 
 Experimente a [demo] online
 
-[demo]: <https://game-healthy-brawler.vercel.app/>
+[demo]: <https://game-healthy-brawler-eykk6x55f-camillas-projects-4d792947.vercel.app//>
 
 ### Versão
 1.0.0
